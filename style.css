@@ -31,7 +31,10 @@ body {
 }
 
 /* --- Typography --- */
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
     font-weight: 600;
     line-height: 1.2;
     letter-spacing: -0.02em;
@@ -57,7 +60,7 @@ nav {
     background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(0,0,0,0.05);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     transition: var(--transition);
 }
 
@@ -171,7 +174,7 @@ nav {
     position: absolute;
     width: 350px;
     height: 350px;
-    background: linear-gradient(135deg, rgba(200,200,200,0.1) 0%, rgba(200,200,200,0.4) 100%);
+    background: linear-gradient(135deg, rgba(200, 200, 200, 0.1) 0%, rgba(200, 200, 200, 0.4) 100%);
     border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
     z-index: -1;
     animation: morph 8s ease-in-out infinite;
@@ -193,20 +196,45 @@ nav {
 }
 
 @keyframes morph {
-    0%, 100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
-    34% { border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%; }
-    67% { border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%; }
+
+    0%,
+    100% {
+        border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    }
+
+    34% {
+        border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%;
+    }
+
+    67% {
+        border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%;
+    }
 }
 
 @keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
-    100% { transform: translateY(0px); }
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
 }
 
 @keyframes fadeUp {
-    0% { opacity: 0; transform: translateY(30px); }
-    100% { opacity: 1; transform: translateY(0); }
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .hero-anim {
@@ -369,11 +397,20 @@ nav {
     overflow: hidden;
     border: 1px solid var(--border-color);
     transition: var(--transition);
+    display: flex;
+    flex-direction: column;
 }
 
 .project-card:hover {
     transform: translateY(-8px);
     box-shadow: var(--shadow-md);
+}
+
+.project-image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .project-image-placeholder {
@@ -390,12 +427,15 @@ nav {
 .project-info {
     padding: 2.5rem 2rem;
     position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .status-badge {
     position: absolute;
-    top: -15px;
-    right: 20px;
+    top: 10px;
+    right: 15px;
     padding: 0.4rem 1rem;
     border-radius: 50px;
     font-size: 0.75rem;
@@ -403,6 +443,7 @@ nav {
     text-transform: uppercase;
     letter-spacing: 0.05em;
     box-shadow: var(--shadow-sm);
+    z-index: 10;
 }
 
 .status-badge.finished {
@@ -425,6 +466,7 @@ nav {
 .project-info p {
     font-size: 0.95rem;
     margin-bottom: 1.5rem;
+    flex: 1;
 }
 
 .link-btn {
@@ -513,7 +555,8 @@ nav {
     background-color: var(--text-main);
     border: 4px solid var(--card-bg);
     border-radius: 50%;
-    left: 13px; /* 20px - 8px + 1px compensation */
+    left: 13px;
+    /* 20px - 8px + 1px compensation */
     top: 5px;
     box-shadow: 0 0 0 4px var(--card-bg);
 }
@@ -590,39 +633,39 @@ footer p {
     .nav-links {
         display: none;
     }
-    
+
     .hero-container {
         flex-direction: column-reverse;
         text-align: center;
         gap: 3rem;
     }
-    
+
     .hero-content {
         text-align: center;
         margin: 0 auto;
     }
-    
+
     .hero-image-wrapper {
         margin: 0 auto;
     }
-    
+
     .blob-shape {
         width: 300px;
         height: 300px;
     }
-    
+
     .hero-image {
         max-width: 300px;
     }
-    
+
     .hero-title {
         font-size: 3rem;
     }
-    
+
     .hero-subtitle {
         font-size: 1.25rem;
     }
-    
+
     .section {
         padding: 4rem 0;
     }
