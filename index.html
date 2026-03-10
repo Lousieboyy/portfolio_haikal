@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,16 +9,19 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <nav id="navbar">
         <div class="nav-content">
             <a href="#home" class="logo">Haikal.</a>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
+                <li><a href="#projects">Projects</a></li>
                 <li><a href="#certificates">Certificates</a></li>
-                <li><a href="#curricular">Curricular</a></li>
+                <li><a href="#background">Background</a></li>
                 <li><a href="#contact">Contact Me</a></li>
             </ul>
         </div>
@@ -26,17 +30,25 @@
     <main>
         <!-- Home Section -->
         <section id="home" class="hero-section">
-            <div class="hero-content animate-on-scroll">
-                <span class="greeting">Hello, world!</span>
-                <h1 class="hero-title">I'm <span class="highlight">Haikal</span></h1>
-                <p class="hero-subtitle">A passionate developer and creator, bringing ideas to life through code.</p>
-                <p class="about-me">
-                    I specialize in building clean, efficient, and beautifully designed digital experiences. 
-                    I love solving complex problems and learning new technologies to continuously improve my craft.
-                </p>
-                <div class="cta-buttons">
-                    <a href="#projects" class="btn btn-primary">Past Projects</a>
-                    <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+            <div class="container hero-container">
+                <div class="hero-content">
+                    <span class="greeting hero-anim" style="--anim-delay: 0.1s">Hello, world!</span>
+                    <h1 class="hero-title hero-anim" style="--anim-delay: 0.2s">I'm <span
+                            class="highlight">Haikal</span></h1>
+                    <p class="hero-subtitle hero-anim" style="--anim-delay: 0.3s">A passionate developer and creator,
+                        bringing ideas to life through code.</p>
+                    <p class="about-me hero-anim" style="--anim-delay: 0.4s">
+                        I specialize in building clean, efficient, and beautifully designed digital experiences.
+                        I love solving complex problems and learning new technologies to continuously improve my craft.
+                    </p>
+                    <div class="cta-buttons hero-anim" style="--anim-delay: 0.5s">
+                        <a href="#projects" class="btn btn-primary">Past Projects</a>
+                        <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+                    </div>
+                </div>
+                <div class="hero-image-wrapper hero-anim-fade" style="--anim-delay: 0.6s">
+                    <div class="blob-shape"></div>
+                    <img src="profile.jpg" alt="Haikal" class="hero-image floating">
                 </div>
             </div>
         </section>
@@ -49,18 +61,18 @@
                     <div class="skill-category">
                         <h3>Core Skills</h3>
                         <div class="pill-container">
-                            <span class="pill">C++</span>
-                            <span class="pill">Python</span>
-                            <span class="pill">Kotlin</span>
+                            <span class="pill"><i class="devicon-cplusplus-plain colored"></i> C++</span>
+                            <span class="pill"><i class="devicon-python-plain colored"></i> Python</span>
+                            <span class="pill"><i class="devicon-kotlin-plain colored"></i> Kotlin</span>
                         </div>
                     </div>
                     <div class="skill-category">
                         <h3>Tools / Software</h3>
                         <div class="pill-container">
-                            <span class="pill">Android Studio</span>
-                            <span class="pill">VS Code</span>
-                            <span class="pill">Postman</span>
-                            <span class="pill">Figma</span>
+                            <span class="pill"><i class="devicon-androidstudio-plain colored"></i> Android Studio</span>
+                            <span class="pill"><i class="devicon-vscode-plain colored"></i> VS Code</span>
+                            <span class="pill"><i class="devicon-postman-plain colored"></i> Postman</span>
+                            <span class="pill"><i class="devicon-figma-plain colored"></i> Figma</span>
                         </div>
                     </div>
                 </div>
@@ -72,31 +84,64 @@
             <div class="container animate-on-scroll">
                 <h2 class="section-title">Past Projects</h2>
                 <div class="projects-grid">
-                    <!-- Placeholders -->
+
                     <div class="project-card">
-                        <div class="project-image-placeholder">Project Image</div>
                         <div class="project-info">
-                            <h3>Project Title One</h3>
-                            <p>A brief description of the project goes here. This is a placeholder until you provide the actual project details.</p>
-                            <a href="#" class="link-btn">View Project &rarr;</a>
+                            <span class="status-badge finished">Finished</span>
+                            <h3>Campus Tutor</h3>
+                            <p>Completed developer project hosted on GitHub.</p>
+                            <a href="https://github.com/Lousieboyy/campus_tutor.git" target="_blank"
+                                rel="noopener noreferrer" class="link-btn"><i class="devicon-github-original colored"
+                                    style="margin-right:8px;"></i> View Repository &rarr;</a>
                         </div>
                     </div>
+
                     <div class="project-card">
-                        <div class="project-image-placeholder">Project Image</div>
                         <div class="project-info">
-                            <h3>Project Title Two</h3>
-                            <p>A brief description of the project goes here. This is a placeholder until you provide the actual project details.</p>
-                            <a href="#" class="link-btn">View Project &rarr;</a>
+                            <span class="status-badge finished">Finished</span>
+                            <h3>Video Project / Showcase</h3>
+                            <p>Demonstration and showcase video available on YouTube.</p>
+                            <a href="https://youtu.be/HEqx5QQTABs?si=pNR1IfeyPm6nMVRH" target="_blank"
+                                rel="noopener noreferrer" class="link-btn" style="color:#FF0000;"><i
+                                    class="devicon-youtube-plain colored" style="margin-right:8px;"></i> Watch Video
+                                &rarr;</a>
                         </div>
                     </div>
-                     <div class="project-card">
-                        <div class="project-image-placeholder">Project Image</div>
+
+                    <div class="project-card">
                         <div class="project-info">
-                            <h3>Project Title Three</h3>
-                            <p>A brief description of the project goes here. This is a placeholder until you provide the actual project details.</p>
-                            <a href="#" class="link-btn">View Project &rarr;</a>
+                            <span class="status-badge finished">Finished</span>
+                            <h3>Gingerbread Donut</h3>
+                            <p>Academic or personal project repository (UTeM FTMK BITP3453).</p>
+                            <a href="https://github.com/faheemezani/utem-ftmk-bitp3453-gingerbread-donut.git"
+                                target="_blank" rel="noopener noreferrer" class="link-btn"><i
+                                    class="devicon-github-original colored" style="margin-right:8px;"></i> View
+                                Repository &rarr;</a>
                         </div>
                     </div>
+
+                    <div class="project-card">
+                        <div class="project-info">
+                            <span class="status-badge ongoing">Ongoing</span>
+                            <h3>Smart City Citizen App</h3>
+                            <p>An ongoing application project focusing on smart city solutions.</p>
+                            <a href="https://github.com/Lousieboyy/smart-city-citizen-app.git" target="_blank"
+                                rel="noopener noreferrer" class="link-btn"><i class="devicon-github-original colored"
+                                    style="margin-right:8px;"></i> View Repository &rarr;</a>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-info">
+                            <span class="status-badge ongoing">Ongoing</span>
+                            <h3>Vaulthalla</h3>
+                            <p>An ongoing repository for Vaulthalla project.</p>
+                            <a href="https://github.com/Lousieboyy/vaulthalla.git" target="_blank"
+                                rel="noopener noreferrer" class="link-btn"><i class="devicon-github-original colored"
+                                    style="margin-right:8px;"></i> View Repository &rarr;</a>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -104,43 +149,80 @@
         <!-- Certificates Section -->
         <section id="certificates" class="section">
             <div class="container animate-on-scroll">
-                <h2 class="section-title">Certificates</h2>
-                <div class="certificates-grid">
-                    <div class="certificate-card">
-                        <div class="cert-icon">🏆</div>
-                        <h3>Certificate Name</h3>
-                        <p>Issuing Organization</p>
-                        <span class="date">Year</span>
+                <h2 class="section-title">Certificates and Badges</h2>
+                <div class="badges-grid">
+                    <div class="badge-card">
+                        <img src="https://cdn.qwiklabs.com/O%2BUe1xXu46e%2ByFUgcqTBv9siZuDhaelyqyBtltnwA4E%3D"
+                            alt="Implementing Cloud Load Balancing" class="badge-img">
+                        <h3 class="badge-title">Implementing Cloud Load Balancing</h3>
                     </div>
-                    <div class="certificate-card">
-                        <div class="cert-icon">🏆</div>
-                        <h3>Certificate Name</h3>
-                        <p>Issuing Organization</p>
-                        <span class="date">Year</span>
+                    <div class="badge-card">
+                        <img src="https://cdn.qwiklabs.com/iSYR6VYwTThdX1gWXV9xN9NiwGeNqW65BAtCXgYAxGU%3D"
+                            alt="Build a Secure Google Cloud Network" class="badge-img">
+                        <h3 class="badge-title">Build a Secure Google Cloud Network</h3>
+                    </div>
+                    <div class="badge-card">
+                        <img src="https://cdn.qwiklabs.com/nPOhhnNKn5VyW7dKUi0ukgK87u1tgExbM1fa%2B%2BeX4zo%3D"
+                            alt="Prepare Data for ML APIs" class="badge-img">
+                        <h3 class="badge-title">Prepare Data for ML APIs</h3>
+                    </div>
+                    <div class="badge-card">
+                        <img src="https://cdn.qwiklabs.com/o%2BM1nlI4Yf8S0NtGm6ygsVm5NqJV5dVXy9JyubJVqn0%3D"
+                            alt="Set Up an App Dev Environment" class="badge-img">
+                        <h3 class="badge-title">Set Up an App Dev Environment</h3>
+                    </div>
+                    <div class="badge-card">
+                        <img src="https://cdn.qwiklabs.com/%2FBy3aI0JqF4BU2BLDdbQlmjd133DWGtLMATMDFuobQk%3D"
+                            alt="Data, ML, and AI in Google Cloud" class="badge-img">
+                        <h3 class="badge-title">Data, ML, and AI</h3>
+                    </div>
+                    <div class="badge-card">
+                        <img src="https://cdn.qwiklabs.com/pVYCJYIRQHsBFUUrAg8aYuNEmzbxyqEC2ilOYTmppzo%3D"
+                            alt="Networking & Security in Google Cloud" class="badge-img">
+                        <h3 class="badge-title">Networking & Security</h3>
+                    </div>
+                    <div class="badge-card">
+                        <img src="https://cdn.qwiklabs.com/knJt4%2FpZ%2BAU9B6lx6AqxbY0RSzmivt9GXPPzisU4Inw%3D"
+                            alt="Infrastructure in Google Cloud" class="badge-img">
+                        <h3 class="badge-title">Cloud Infrastructure</h3>
+                    </div>
+                    <div class="badge-card">
+                        <img src="https://cdn.qwiklabs.com/ZfZY3e%2FRjS56CUmz0fQhZbKt6eUfC1wAebm50h0dOhc%3D"
+                            alt="Cloud Computing Fundamentals" class="badge-img">
+                        <h3 class="badge-title">Cloud Fundamentals</h3>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Curricular Section -->
-        <section id="curricular" class="section bg-light">
+        <!-- Background Section -->
+        <section id="background" class="section bg-light">
             <div class="container animate-on-scroll">
-                <h2 class="section-title">Curricular Activities</h2>
+                <h2 class="section-title">Educational Background</h2>
                 <div class="timeline">
                     <div class="timeline-item">
                         <div class="timeline-dot"></div>
                         <div class="timeline-content">
-                            <h3>Extracurricular Role / Activity</h3>
-                            <span class="date">2023 - Present</span>
-                            <p>Description of the activity, role, and achievements. Placeholder text.</p>
+                            <h3>Universiti Teknikal Malaysia Melaka (UTeM)</h3>
+                            <span class="date">Degree & Diploma</span>
+                            <p>Pursuing higher education studies in technology/engineering with both Diploma and
+                                Bachelor's Degree levels of study.</p>
                         </div>
                     </div>
                     <div class="timeline-item">
                         <div class="timeline-dot"></div>
                         <div class="timeline-content">
-                            <h3>Another Activity</h3>
-                            <span class="date">2021 - 2023</span>
-                            <p>Description of the activity, role, and achievements. Placeholder text.</p>
+                            <h3>SMK Ibrahim</h3>
+                            <span class="date">Secondary Education</span>
+                            <p>Completed secondary school education with strong academic foundation.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>SK Ambangan Heights</h3>
+                            <span class="date">Primary Education</span>
+                            <p>Completed primary school education.</p>
                         </div>
                     </div>
                 </div>
@@ -152,7 +234,8 @@
             <div class="container animate-on-scroll">
                 <div class="contact-box">
                     <h2 class="section-title">Let's Connect</h2>
-                    <p class="contact-desc">I'm currently available for work. Whether you have a question or just want to say hi, I'll try my best to get back to you!</p>
+                    <p class="contact-desc">I'm currently available for work. Whether you have a question or just want
+                        to say hi, I'll try my best to get back to you!</p>
                     <a href="mailto:hello@example.com" class="btn btn-primary">Say Hello</a>
                 </div>
             </div>
@@ -167,4 +250,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>
