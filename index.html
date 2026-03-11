@@ -17,13 +17,37 @@
     <nav id="navbar">
         <div class="nav-content">
             <a href="#home" class="logo">Haikal.</a>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#certificates">Certificates</a></li>
-                <li><a href="#background">Background</a></li>
-                <li><a href="#contact">Contact Me</a></li>
-            </ul>
+            <div style="display: flex; align-items: center; gap: 1.5rem;">
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#certificates">Certificates</a></li>
+                    <li><a href="#background">Background</a></li>
+                    <li><a href="#contact">Contact Me</a></li>
+                </ul>
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle Dark Mode">
+                    <!-- Sun Icon (shown in dark mode context) -->
+                    <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <!-- Moon Icon (shown in light mode context) -->
+                    <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+            </div>
         </div>
     </nav>
 
@@ -113,8 +137,8 @@
                     <div class="project-card">
                         <div class="project-info">
                             <span class="status-badge finished">Finished</span>
-                            <h3>Final Project DITM 2113 MULTIMEDIA SYSTEMS</h3>
-                            <p>Demonstration and showcase video available on YouTube.</p>
+                            <h3>Yoga The Arrogant Ball</h3>
+                            <p>Demonstration and showcase of Final Project DITM 2113 MULTIMEDIA SYSTEMS.</p>
                             <p>Tools: Capcut, Adobe Premiere Pro</p>
                             <a href="https://youtu.be/HEqx5QQTABs?si=pNR1IfeyPm6nMVRH" target="_blank"
                                 rel="noopener noreferrer" class="link-btn" style="color:#FF0000;"><i
@@ -126,7 +150,7 @@
                     <div class="project-card">
                         <div class="project-info">
                             <span class="status-badge finished">Finished</span>
-                            <h3>Saving Goal Gamification</h3>
+                            <h3>Gamification Saving Goal Application</h3>
                             <p>An app that helps users to save money by gamifying the saving process.</p>
                             <p>Languages and Tools: Android Studio, Kotlin</p>
                             <a href="https://github.com/faheemezani/utem-ftmk-bitp3453-gingerbread-donut.git"
