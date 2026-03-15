@@ -226,27 +226,75 @@ nav {
     align-items: center;
     position: relative;
     max-width: 500px;
+    perspective: 1000px;
+    transform-style: preserve-3d;
 }
 
 .blob-shape {
     position: absolute;
-    width: 350px;
-    height: 350px;
-    background: linear-gradient(135deg, rgba(200, 200, 200, 0.1) 0%, rgba(200, 200, 200, 0.4) 100%);
+    width: 600px;
+    height: 600px;
+    background: linear-gradient(135deg, #ff0f7b 0%, #f89b29 100%);
     border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
-    z-index: -1;
-    animation: morph 8s ease-in-out infinite;
-    filter: blur(2px);
+    z-index: 0;
+    animation: morph 20s ease-in-out infinite, rotateBlob 30s linear infinite;
+    filter: blur(25px);
+    opacity: 0.8;
+}
+
+[data-theme='dark'] .blob-shape {
+    background: linear-gradient(135deg, #7928ca 0%, #ff0080 100%);
+    opacity: 0.6;
+    filter: blur(30px);
+}
+
+.glass-container {
+    position: relative;
+    z-index: 1;
+    padding: 10px;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: -20px 20px 50px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    transform: rotateY(-15deg) rotateX(10deg);
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+[data-theme='dark'] .glass-container {
+    background: rgba(30, 32, 40, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: -20px 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+.glass-shine {
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 100%);
+    transform: skewX(-20deg);
+    z-index: 2;
+    pointer-events: none;
+    transition: left 0.1s linear;
+}
+
+[data-theme='dark'] .glass-shine {
+    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0) 100%);
 }
 
 .hero-image {
     width: 100%;
-    max-width: 380px;
+    max-width: 350px;
     height: auto;
     border-radius: 20px;
     object-fit: cover;
-    box-shadow: var(--shadow-md);
-    border: 4px solid var(--primary-bg);
+    display: block;
+    position: relative;
+    z-index: 1;
 }
 
 .floating {
@@ -266,6 +314,16 @@ nav {
 
     67% {
         border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%;
+    }
+}
+
+@keyframes rotateBlob {
+    from {
+        transform: rotate(0deg) translateZ(-50px);
+    }
+
+    to {
+        transform: rotate(360deg) translateZ(-50px);
     }
 }
 
