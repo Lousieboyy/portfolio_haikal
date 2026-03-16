@@ -544,18 +544,58 @@ nav {
     height: 220px;
     object-fit: cover;
     border-bottom: 1px solid var(--border-color);
+    transition: transform 0.5s ease;
+}
+
+.project-card:hover .project-image,
+.project-card:hover .project-image-placeholder i {
+    transform: scale(1.05);
 }
 
 .project-image-placeholder {
-    height: 220px;
-    background: linear-gradient(135deg, #f1f3f5 0%, #e9ecef 100%);
+    height: 180px;
+    background: var(--pill-bg);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #adb5bd;
-    font-weight: 500;
+    color: var(--text-muted);
     border-bottom: 1px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
 }
+
+.project-image-placeholder i {
+    transition: transform 0.5s ease;
+}
+
+/* Geometric patterns for placeholders */
+.pattern-1 {
+    background: linear-gradient(135deg, rgba(255, 15, 123, 0.05) 0%, rgba(248, 155, 41, 0.05) 100%);
+}
+.pattern-2 {
+    background: linear-gradient(135deg, rgba(39, 174, 96, 0.05) 0%, rgba(46, 204, 113, 0.05) 100%);
+}
+.pattern-3 {
+    background: linear-gradient(135deg, rgba(52, 152, 219, 0.05) 0%, rgba(41, 128, 185, 0.05) 100%);
+}
+.pattern-4 {
+    background: linear-gradient(135deg, rgba(155, 89, 182, 0.05) 0%, rgba(142, 68, 173, 0.05) 100%);
+}
+
+[data-theme='dark'] .pattern-1 {
+    background: linear-gradient(135deg, rgba(121, 40, 202, 0.1) 0%, rgba(255, 0, 128, 0.1) 100%);
+}
+[data-theme='dark'] .pattern-2 {
+    background: linear-gradient(135deg, rgba(39, 174, 96, 0.1) 0%, rgba(46, 204, 113, 0.1) 100%);
+}
+[data-theme='dark'] .pattern-3 {
+    background: linear-gradient(135deg, rgba(52, 152, 219, 0.1) 0%, rgba(41, 128, 185, 0.1) 100%);
+}
+[data-theme='dark'] .pattern-4 {
+    background: linear-gradient(135deg, rgba(155, 89, 182, 0.1) 0%, rgba(142, 68, 173, 0.1) 100%);
+}
+
+
 
 .project-info {
     padding: 2.5rem 2rem;
@@ -800,6 +840,84 @@ footer p {
 .animate-on-scroll.is-visible {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* --- Scroll Progress Bar --- */
+.scroll-progress-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px; /* Thin, subtle bar */
+    background: transparent;
+    z-index: 1001; /* Above navbar */
+}
+
+.scroll-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #ff0f7b 0%, #f89b29 100%);
+    transition: width 0.1s ease;
+}
+
+[data-theme='dark'] .scroll-progress-bar {
+    background: linear-gradient(90deg, #7928ca 0%, #ff0080 100%);
+}
+
+/* --- Typing Animation --- */
+.typing-text {
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+.cursor {
+    display: inline-block;
+    width: 2px;
+    background-color: var(--text-main);
+    margin-left: 2px;
+    animation: blink 1s step-end infinite;
+    color: transparent; /* Text is pipe character | but we show background */
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* --- Copy Tooltip --- */
+.copy-tooltip {
+    visibility: hidden;
+    background-color: var(--text-main);
+    color: var(--primary-bg);
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 10px;
+    position: absolute;
+    z-index: 1;
+    bottom: 115%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 0.85rem;
+    font-weight: 600;
+    box-shadow: var(--shadow-sm);
+}
+
+.copy-tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--text-main) transparent transparent transparent;
+}
+
+.copy-tooltip.show {
+    visibility: visible;
+    opacity: 1;
 }
 
 /* --- Responsive --- */

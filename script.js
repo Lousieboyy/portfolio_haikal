@@ -113,4 +113,79 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // 6. Scroll Progress Bar Update
+    const scrollProgress = document.getElementById('scroll-progress');
+    if (scrollProgress) {
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.body.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            scrollProgress.style.width = `${scrollPercent}%`;
+        });
+    }
+
+    // 7. Typing Animation for Hero Section
+    const typingText = document.querySelector('.typing-text');
+    if (typingText) {
+        const words = ['Software Developer', 'UI/UX Enthusiast', 'Tech Explorer'];
+        let wordIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typeSpeed = 100;
+
+        function type() {
+            const currentWord = words[wordIndex];
+
+            if (isDeleting) {
+                typingText.textContent = currentWord.substring(0, charIndex - 1);
+                charIndex--;
+                typeSpeed = 50; // go faster when deleting
+            } else {
+                typingText.textContent = currentWord.substring(0, charIndex + 1);
+                charIndex++;
+                typeSpeed = 150; // normal typing speed
+            }
+
+            // Word fully typed out
+            if (!isDeleting && charIndex === currentWord.length) {
+                isDeleting = true;
+                typeSpeed = 2000; // Pause at the end of the word
+            } 
+            // Word fully deleted
+            else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                wordIndex++;
+                if (wordIndex >= words.length) {
+                    wordIndex = 0;
+                }
+                typeSpeed = 500; // Pause before new word
+            }
+
+            setTimeout(type, typeSpeed);
+        }
+
+        // Start typing after a short initial delay matching the hero animation delay
+        setTimeout(type, 1000); 
+    }
 });
+
+// Global function to copy email
+window.copyEmail = function() {
+    const email = "mohamadhaikalrejab@gmail.com";
+    navigator.clipboard.writeText(email).then(() => {
+        const tooltip = document.getElementById("copy-tooltip");
+        tooltip.innerHTML = "Copied!";
+        tooltip.classList.add("show");
+        
+        setTimeout(() => {
+            tooltip.classList.remove("show");
+            // Reset text after tooltip fades
+            setTimeout(() => {
+                tooltip.innerHTML = "Copy to clipboard";
+            }, 300);
+        }, 2000);
+    }).catch(err => {
+        console.error('Failed to copy info: ', err);
+    });
+};

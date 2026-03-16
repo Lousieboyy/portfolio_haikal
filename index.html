@@ -14,6 +14,11 @@
 </head>
 
 <body>
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress-container">
+        <div class="scroll-progress-bar" id="scroll-progress"></div>
+    </div>
+    
     <nav id="navbar">
         <div class="nav-content">
             <a href="#home" class="logo">Mohamad Haikal.</a>
@@ -59,8 +64,7 @@
                     <span class="greeting hero-anim" style="--anim-delay: 0.1s">Hello, world!</span>
                     <h1 class="hero-title hero-anim" style="--anim-delay: 0.2s">I'm <span class="highlight">Mohamad
                             Haikal</span></h1>
-                    <p class="hero-subtitle hero-anim" style="--anim-delay: 0.3s">A passionate developer and creator,
-                        bringing ideas to life through code.</p>
+                    <p class="hero-subtitle hero-anim" style="--anim-delay: 0.3s">I am a <span class="typing-text"></span><span class="cursor">|</span></p>
                     <p class="about-me hero-anim" style="--anim-delay: 0.4s">
                         I specialize in building clean, efficient, and beautifully designed digital experiences.
                         I love solving complex problems and learning new technologies to continuously improve my craft.
@@ -126,6 +130,9 @@
                 <div class="projects-grid">
 
                     <div class="project-card">
+                        <div class="project-image-placeholder pattern-1">
+                            <i class="devicon-androidstudio-plain" style="font-size: 4rem; opacity: 0.5;"></i>
+                        </div>
                         <div class="project-info">
                             <span class="status-badge finished">Finished</span>
                             <h3>CampusTutor</h3>
@@ -138,6 +145,9 @@
                     </div>
 
                     <div class="project-card">
+                        <div class="project-image-placeholder pattern-2">
+                            <i class="devicon-premierepro-plain" style="font-size: 4rem; opacity: 0.5;"></i>
+                        </div>
                         <div class="project-info">
                             <span class="status-badge finished">Finished</span>
                             <h3>Yoga The Arrogant Ball</h3>
@@ -151,6 +161,9 @@
                     </div>
 
                     <div class="project-card">
+                        <div class="project-image-placeholder pattern-3">
+                            <i class="devicon-kotlin-plain" style="font-size: 4rem; opacity: 0.5;"></i>
+                        </div>
                         <div class="project-info">
                             <span class="status-badge finished">Finished</span>
                             <h3>Gamification Saving Goal Application</h3>
@@ -164,6 +177,9 @@
                     </div>
 
                     <div class="project-card">
+                        <div class="project-image-placeholder pattern-4">
+                            <i class="devicon-javascript-plain" style="font-size: 4rem; opacity: 0.5;"></i>
+                        </div>
                         <div class="project-info">
                             <span class="status-badge finished">Finished</span>
                             <h3>Drag and Drop Auto Downloader</h3>
@@ -178,6 +194,9 @@
                     </div>
 
                     <div class="project-card">
+                        <div class="project-image-placeholder pattern-1">
+                            <i class="devicon-flutter-plain" style="font-size: 4rem; opacity: 0.5;"></i>
+                        </div>
                         <div class="project-info">
                             <span class="status-badge ongoing">Ongoing</span>
                             <h3>Smart City Citizen App</h3>
@@ -190,6 +209,9 @@
                     </div>
 
                     <div class="project-card">
+                        <div class="project-image-placeholder pattern-2">
+                            <i class="devicon-html5-plain" style="font-size: 4rem; opacity: 0.5;"></i>
+                        </div>
                         <div class="project-info">
                             <span class="status-badge ongoing">Ongoing</span>
                             <h3>Vaulthalla</h3>
@@ -202,6 +224,9 @@
                     </div>
 
                     <div class="project-card">
+                        <div class="project-image-placeholder pattern-3">
+                            <i class="devicon-csharp-plain" style="font-size: 4rem; opacity: 0.5;"></i>
+                        </div>
                         <div class="project-info">
                             <span class="status-badge ongoing">Ongoing</span>
                             <h3>Sentinel</h3>
@@ -321,7 +346,10 @@
                     <div class="contact-links">
                         <a href="https://wa.me/60166042644" target="_blank" class="btn btn-secondary"><i
                                 class="devicon-twitter-original" style="display:none;"></i> 💬 WhatsApp</a>
-                        <a href="mailto:mohamadhaikalrejab@gmail.com" class="btn btn-secondary">✉️ Email Me</a>
+                        <div style="position: relative; display: inline-block;">
+                            <button class="btn btn-secondary copy-email-btn" onclick="copyEmail()">✉️ Email Me</button>
+                            <span class="copy-tooltip" id="copy-tooltip">Copied!</span>
+                        </div>
                         <a href="https://www.linkedin.com/in/haikal-mohamad-85996b297" target="_blank"
                             class="btn btn-secondary"><i class="devicon-linkedin-plain colored"></i> LinkedIn</a>
                         <a href="https://github.com/Lousieboyy" target="_blank" class="btn btn-secondary"><i
