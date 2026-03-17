@@ -45,8 +45,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         navLinks.forEach(link => {
             link.classList.remove('active');
+            link.removeAttribute('aria-current');
             if (link.getAttribute('href') === `#${current}`) {
                 link.classList.add('active');
+                link.setAttribute('aria-current', 'page');
             }
         });
     });
@@ -122,6 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const docHeight = document.body.scrollHeight - window.innerHeight;
             const scrollPercent = (scrollTop / docHeight) * 100;
             scrollProgress.style.width = `${scrollPercent}%`;
+            scrollProgress.setAttribute('aria-valuenow', Math.round(scrollPercent));
         });
     }
 
@@ -167,6 +170,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Start typing after a short initial delay matching the hero animation delay
         setTimeout(type, 1000); 
+    }
+
+    // 8. Back to Top Button
+    const backToTopBtn = document.getElementById('back-to-top');
+    if (backToTopBtn) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+            // Update URL hash without jumping
+            history.pushState(null, null, '#home');
+        });
     }
 });
 

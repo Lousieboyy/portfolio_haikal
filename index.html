@@ -15,8 +15,8 @@
 
 <body>
     <!-- Scroll Progress Bar -->
-    <div class="scroll-progress-container">
-        <div class="scroll-progress-bar" id="scroll-progress"></div>
+    <div class="scroll-progress-container" aria-hidden="true">
+        <div class="scroll-progress-bar" id="scroll-progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
     </div>
     
     <nav id="navbar">
@@ -24,7 +24,7 @@
             <a href="#home" class="logo">Mohamad Haikal.</a>
             <div style="display: flex; align-items: center; gap: 1.5rem;">
                 <ul class="nav-links">
-                    <li><a href="#home">Home</a></li>
+                    <li><a href="#home" aria-current="page">Home</a></li>
                     <li><a href="#projects">Projects</a></li>
                     <li><a href="#certificates">Certificates</a></li>
                     <li><a href="#background">Background</a></li>
@@ -365,6 +365,13 @@
             <p>&copy; 2026 Haikal. Designed with minimalistic elegance.</p>
         </div>
     </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#home" id="back-to-top" class="back-to-top" aria-label="Scroll back to top">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </a>
 
     <script src="script.js"></script>
 </body>

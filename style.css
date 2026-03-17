@@ -920,6 +920,45 @@ footer p {
     opacity: 1;
 }
 
+/* --- Back to Top Button --- */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background-color: var(--text-main);
+    color: var(--primary-bg);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    box-shadow: var(--shadow-md);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 1000;
+}
+
+.back-to-top:hover {
+    transform: translateY(-5px);
+    background-color: var(--text-main);
+    color: var(--primary-bg);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+[data-theme='dark'] .back-to-top:hover {
+    box-shadow: 0 10px 25px rgba(255,255,255,0.1);
+}
+
+.back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
 /* --- Responsive --- */
 @media (max-width: 768px) {
     .nav-links {
