@@ -1227,13 +1227,106 @@ nav {
 
 /* --- Footer --- */
 footer {
-    text-align: center;
-    padding: 3rem 0;
     border-top: 1px solid var(--border-color);
+    padding: 4rem 0 0;
 }
 
-footer p {
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 3rem;
+    padding-bottom: 3rem;
+}
+
+.footer-logo {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    display: inline-block;
+    margin-bottom: 0.75rem;
+}
+
+.footer-tagline {
     font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    max-width: 320px;
+}
+
+.footer-nav h4,
+.footer-social h4 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-main);
+}
+
+.footer-nav ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.footer-nav a {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    transition: color 0.2s ease;
+}
+
+.footer-nav a:hover {
+    color: var(--text-main);
+}
+
+.footer-social-icons {
+    display: flex;
+    gap: 1rem;
+}
+
+.footer-social-icons a {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--secondary-bg);
+    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    transition: var(--transition);
+}
+
+.footer-social-icons a:hover {
+    background: var(--text-main);
+    color: var(--primary-bg);
+    border-color: var(--text-main);
+    transform: translateY(-3px);
+}
+
+.footer-bottom {
+    border-top: 1px solid var(--border-color);
+    padding: 1.5rem 0;
+    text-align: center;
+}
+
+.footer-bottom p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.heart {
+    color: #ff0f7b;
+    display: inline-block;
+    animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+[data-theme='dark'] .heart {
+    color: #ff0080;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
 }
 
 /* --- Animations --- */
@@ -1544,5 +1637,23 @@ footer p {
     .custom-cursor,
     .cursor-dot {
         display: none !important;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+    }
+
+    .footer-tagline {
+        max-width: 100%;
+    }
+
+    .footer-nav ul {
+        gap: 0.4rem;
+    }
+
+    .footer-social-icons {
+        justify-content: center;
     }
 }
