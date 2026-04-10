@@ -172,6 +172,38 @@
                         <p class="stat-label">Languages Known</p>
                     </div>
                 </div>
+
+                <!-- GitHub Live Stats -->
+                <div class="github-stats-row" id="github-stats-row">
+                    <div class="github-stats-header">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        <span>GitHub Overview</span>
+                        <a href="https://github.com/Lousieboyy" target="_blank" rel="noopener noreferrer" class="github-handle">@Lousieboyy</a>
+                    </div>
+                    <div class="github-stats-content">
+                        <div class="github-stat-item">
+                            <span class="github-stat-num" id="gh-repos">—</span>
+                            <span class="github-stat-label-sm">Public Repos</span>
+                        </div>
+                        <div class="github-divider"></div>
+                        <div class="github-stat-item">
+                            <span class="github-stat-num" id="gh-stars">—</span>
+                            <span class="github-stat-label-sm">Total Stars</span>
+                        </div>
+                        <div class="github-divider"></div>
+                        <div class="github-stat-item">
+                            <span class="github-stat-num" id="gh-followers">—</span>
+                            <span class="github-stat-label-sm">Followers</span>
+                        </div>
+                        <div class="github-divider"></div>
+                        <div class="github-lang-section">
+                            <span class="github-stat-label-sm">Top Languages</span>
+                            <div class="github-lang-bar-container" id="gh-lang-bar"></div>
+                            <div class="github-lang-legend" id="gh-lang-legend"></div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
@@ -281,105 +313,129 @@
                 </div>
                 <div class="projects-grid">
 
-                    <div class="project-card" data-status="finished">
-                        <img src="assets/projects/campus_tutor.png" alt="CampusTutor App Screenshot"
-                            class="project-image" loading="lazy">
+                    <div class="project-card" data-status="finished"
+                        data-title="CampusTutor"
+                        data-image="assets/projects/campus_tutor.png"
+                        data-desc="A peer-to-peer student platform that connects students with tutors for academic support. Features session booking, real-time messaging, and progress tracking."
+                        data-tech="Android Studio,Kotlin,Node.js,PHP,MySQL"
+                        data-repo="https://github.com/Lousieboyy/campus_tutor.git"
+                        data-demo="">
+                        <div class="project-card-overlay" aria-hidden="true"><span class="project-view-label">View Details</span></div>
+                        <img src="assets/projects/campus_tutor.png" alt="CampusTutor App Screenshot" class="project-image" loading="lazy">
                         <div class="project-info">
                             <span class="status-badge finished">Finished</span>
                             <h3>CampusTutor</h3>
                             <p>Peer to peer student platform.</p>
                             <p>Languages and Tools: Android Studio, Kotlin, Visual Studio, NodeJS, PhpMyAdmin</p>
-                            <a href="https://github.com/Lousieboyy/campus_tutor.git" target="_blank"
-                                rel="noopener noreferrer" class="link-btn"><i class="devicon-github-original colored"
-                                    style="margin-right:8px;"></i> View Repository &rarr;</a>
+                            <a href="https://github.com/Lousieboyy/campus_tutor.git" target="_blank" rel="noopener noreferrer" class="link-btn" onclick="event.stopPropagation()"><i class="devicon-github-original colored" style="margin-right:8px;"></i> View Repository &rarr;</a>
                         </div>
                     </div>
 
-                    <div class="project-card" data-status="finished">
-                        <img src="assets/projects/yoga_ball.png" alt="Yoga The Arrogant Ball Poster"
-                            class="project-image" loading="lazy">
+                    <div class="project-card" data-status="finished"
+                        data-title="Yoga The Arrogant Ball"
+                        data-image="assets/projects/yoga_ball.png"
+                        data-desc="A multimedia animation project created as a Final Project for the DITM 2113 Multimedia Systems course. Features animated storytelling with audio-visual production."
+                        data-tech="Capcut,Adobe Premiere Pro"
+                        data-repo=""
+                        data-demo="https://youtu.be/HEqx5QQTABs?si=pNR1IfeyPm6nMVRH">
+                        <div class="project-card-overlay" aria-hidden="true"><span class="project-view-label">View Details</span></div>
+                        <img src="assets/projects/yoga_ball.png" alt="Yoga The Arrogant Ball Poster" class="project-image" loading="lazy">
                         <div class="project-info">
                             <span class="status-badge finished">Finished</span>
                             <h3>Yoga The Arrogant Ball</h3>
                             <p>Demonstration and showcase of Final Project DITM 2113 MULTIMEDIA SYSTEMS.</p>
                             <p>Tools: Capcut, Adobe Premiere Pro</p>
-                            <a href="https://youtu.be/HEqx5QQTABs?si=pNR1IfeyPm6nMVRH" target="_blank"
-                                rel="noopener noreferrer" class="link-btn" style="color:#FF0000;"><i
-                                    class="devicon-youtube-plain colored" style="margin-right:8px;"></i> Watch Video
-                                &rarr;</a>
+                            <a href="https://youtu.be/HEqx5QQTABs?si=pNR1IfeyPm6nMVRH" target="_blank" rel="noopener noreferrer" class="link-btn" style="color:#FF0000;" onclick="event.stopPropagation()"><i class="devicon-youtube-plain colored" style="margin-right:8px;"></i> Watch Video &rarr;</a>
                         </div>
                     </div>
 
-                    <div class="project-card" data-status="finished">
-                        <img src="assets/projects/savings_app.png" alt="Gamification Saving Goal App Screenshot"
-                            class="project-image" loading="lazy">
+                    <div class="project-card" data-status="finished"
+                        data-title="Gamification Saving Goal Application"
+                        data-image="assets/projects/savings_app.png"
+                        data-desc="An Android app that helps users build better saving habits by gamifying the process. Users earn achievements, maintain streaks, and unlock rewards as they hit savings milestones."
+                        data-tech="Android Studio,Kotlin"
+                        data-repo="https://github.com/faheemezani/utem-ftmk-bitp3453-gingerbread-donut.git"
+                        data-demo="">
+                        <div class="project-card-overlay" aria-hidden="true"><span class="project-view-label">View Details</span></div>
+                        <img src="assets/projects/savings_app.png" alt="Gamification Saving Goal App Screenshot" class="project-image" loading="lazy">
                         <div class="project-info">
                             <span class="status-badge finished">Finished</span>
                             <h3>Gamification Saving Goal Application</h3>
                             <p>An app that helps users to save money by gamifying the saving process.</p>
                             <p>Languages and Tools: Android Studio, Kotlin</p>
-                            <a href="https://github.com/faheemezani/utem-ftmk-bitp3453-gingerbread-donut.git"
-                                target="_blank" rel="noopener noreferrer" class="link-btn"><i
-                                    class="devicon-github-original colored" style="margin-right:8px;"></i> View
-                                Repository &rarr;</a>
+                            <a href="https://github.com/faheemezani/utem-ftmk-bitp3453-gingerbread-donut.git" target="_blank" rel="noopener noreferrer" class="link-btn" onclick="event.stopPropagation()"><i class="devicon-github-original colored" style="margin-right:8px;"></i> View Repository &rarr;</a>
                         </div>
                     </div>
 
-                    <div class="project-card" data-status="finished">
-                        <img src="assets/projects/drag_drop.png" alt="Drag and Drop Auto Downloader Screenshot"
-                            class="project-image" loading="lazy">
+                    <div class="project-card" data-status="finished"
+                        data-title="Drag and Drop Auto Downloader"
+                        data-image="assets/projects/drag_drop.png"
+                        data-desc="A browser-based utility that lets users download files by dragging and dropping them onto the page, with automatic saving to a desired folder path."
+                        data-tech="HTML,CSS,JavaScript,Cursor AI"
+                        data-repo="https://github.com/Lousieboyy/drag_and_drop_auto_dw.git"
+                        data-demo="">
+                        <div class="project-card-overlay" aria-hidden="true"><span class="project-view-label">View Details</span></div>
+                        <img src="assets/projects/drag_drop.png" alt="Drag and Drop Auto Downloader Screenshot" class="project-image" loading="lazy">
                         <div class="project-info">
                             <span class="status-badge finished">Finished</span>
                             <h3>Drag and Drop Auto Downloader</h3>
-                            <p>Webpage to assist user to download file by dragging and dropping the file and auto save
-                                to desire folder.</p>
+                            <p>Webpage to assist user to download file by dragging and dropping the file and auto save to desire folder.</p>
                             <p>Languages and Tools: Cursor, HTML, JavaScript</p>
-                            <a href="https://github.com/Lousieboyy/drag_and_drop_auto_dw.git" target="_blank"
-                                rel="noopener noreferrer" class="link-btn"><i class="devicon-github-original colored"
-                                    style="margin-right:8px;"></i> View
-                                Repository &rarr;</a>
+                            <a href="https://github.com/Lousieboyy/drag_and_drop_auto_dw.git" target="_blank" rel="noopener noreferrer" class="link-btn" onclick="event.stopPropagation()"><i class="devicon-github-original colored" style="margin-right:8px;"></i> View Repository &rarr;</a>
                         </div>
                     </div>
 
-                    <div class="project-card" data-status="ongoing">
-                        <img src="assets/projects/smart_city.png" alt="Smart City Citizen App Screenshot"
-                            class="project-image" loading="lazy">
+                    <div class="project-card" data-status="ongoing"
+                        data-title="Smart City Citizen App"
+                        data-image="assets/projects/smart_city.png"
+                        data-desc="An ongoing smart city mobile application enabling citizens to report incidents, interact with city infrastructure, and access AI-powered services in real time."
+                        data-tech="Flutter,Python,TensorFlow,VS Code"
+                        data-repo="https://github.com/Lousieboyy/smart-city-citizen-app.git"
+                        data-demo="">
+                        <div class="project-card-overlay" aria-hidden="true"><span class="project-view-label">View Details</span></div>
+                        <img src="assets/projects/smart_city.png" alt="Smart City Citizen App Screenshot" class="project-image" loading="lazy">
                         <div class="project-info">
                             <span class="status-badge ongoing">Ongoing</span>
                             <h3>Smart City Citizen App</h3>
                             <p>An ongoing application project focusing on smart city solutions.</p>
-                            <p>Languages and Tools: Visual Studio Code, Flutter, Python, TensorFLow</p>
-                            <a href="https://github.com/Lousieboyy/smart-city-citizen-app.git" target="_blank"
-                                rel="noopener noreferrer" class="link-btn"><i class="devicon-github-original colored"
-                                    style="margin-right:8px;"></i> View Repository &rarr;</a>
+                            <p>Languages and Tools: Visual Studio Code, Flutter, Python, TensorFlow</p>
+                            <a href="https://github.com/Lousieboyy/smart-city-citizen-app.git" target="_blank" rel="noopener noreferrer" class="link-btn" onclick="event.stopPropagation()"><i class="devicon-github-original colored" style="margin-right:8px;"></i> View Repository &rarr;</a>
                         </div>
                     </div>
 
-                    <div class="project-card" data-status="ongoing">
-                        <img src="assets/projects/vaulthalla.png" alt="Vaulthalla App Screenshot" class="project-image"
-                            loading="lazy">
+                    <div class="project-card" data-status="ongoing"
+                        data-title="Vaulthalla"
+                        data-image="assets/projects/vaulthalla.png"
+                        data-desc="An ongoing web platform actively under development. A modern, feature-rich application — more details and features coming soon."
+                        data-tech="HTML,CSS,JavaScript,VS Code"
+                        data-repo="https://github.com/Lousieboyy/vaulthalla.git"
+                        data-demo="">
+                        <div class="project-card-overlay" aria-hidden="true"><span class="project-view-label">View Details</span></div>
+                        <img src="assets/projects/vaulthalla.png" alt="Vaulthalla App Screenshot" class="project-image" loading="lazy">
                         <div class="project-info">
                             <span class="status-badge ongoing">Ongoing</span>
                             <h3>Vaulthalla</h3>
                             <p>An ongoing repository for Vaulthalla project.</p>
                             <p>Language and Tools: Visual Studio Code, HTML, CSS, Javascript</p>
-                            <a href="https://github.com/Lousieboyy/vaulthalla.git" target="_blank"
-                                rel="noopener noreferrer" class="link-btn"><i class="devicon-github-original colored"
-                                    style="margin-right:8px;"></i> View Repository &rarr;</a>
+                            <a href="https://github.com/Lousieboyy/vaulthalla.git" target="_blank" rel="noopener noreferrer" class="link-btn" onclick="event.stopPropagation()"><i class="devicon-github-original colored" style="margin-right:8px;"></i> View Repository &rarr;</a>
                         </div>
                     </div>
 
-                    <div class="project-card" data-status="ongoing">
-                        <img src="assets/projects/sentinel.png" alt="Sentinel Dashboard Screenshot"
-                            class="project-image" loading="lazy">
+                    <div class="project-card" data-status="ongoing"
+                        data-title="Sentinel"
+                        data-image="assets/projects/sentinel.png"
+                        data-desc="A scalable real-time incident reporting and analysis platform for enterprise use. Features live dashboards, data streaming, comprehensive analytics, and incident management workflows."
+                        data-tech="C#,Visual Studio,.NET"
+                        data-repo="https://github.com/Lousieboyy/sentinel.git"
+                        data-demo="">
+                        <div class="project-card-overlay" aria-hidden="true"><span class="project-view-label">View Details</span></div>
+                        <img src="assets/projects/sentinel.png" alt="Sentinel Dashboard Screenshot" class="project-image" loading="lazy">
                         <div class="project-info">
                             <span class="status-badge ongoing">Ongoing</span>
                             <h3>Sentinel</h3>
                             <p>A Scalable Real-Time Incident Reporting and Analysis Platform.</p>
                             <p>Language and Tools: Visual Studio, C#</p>
-                            <a href="https://github.com/Lousieboyy/sentinel.git" target="_blank"
-                                rel="noopener noreferrer" class="link-btn"><i class="devicon-github-original colored"
-                                    style="margin-right:8px;"></i> View Repository &rarr;</a>
+                            <a href="https://github.com/Lousieboyy/sentinel.git" target="_blank" rel="noopener noreferrer" class="link-btn" onclick="event.stopPropagation()"><i class="devicon-github-original colored" style="margin-right:8px;"></i> View Repository &rarr;</a>
                         </div>
                     </div>
 
@@ -639,6 +695,28 @@
     <!-- Custom Cursor -->
     <div class="custom-cursor" id="custom-cursor"></div>
     <div class="cursor-dot" id="cursor-dot"></div>
+
+    <!-- Project Detail Modal -->
+    <div class="modal-overlay" id="project-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1">
+        <div class="modal-container" id="modal-container">
+            <button class="modal-close" id="modal-close" aria-label="Close project details">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+            <div class="modal-image-wrapper">
+                <img src="" alt="" id="modal-image" class="modal-image">
+                <span class="modal-status-badge" id="modal-status-badge"></span>
+            </div>
+            <div class="modal-body">
+                <h3 class="modal-title" id="modal-title"></h3>
+                <p class="modal-description" id="modal-desc"></p>
+                <div class="modal-tech-section">
+                    <span class="modal-tech-label">Technologies Used</span>
+                    <div class="pill-container" id="modal-tech-pills"></div>
+                </div>
+                <div class="modal-actions" id="modal-actions"></div>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>

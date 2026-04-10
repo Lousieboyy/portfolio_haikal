@@ -116,7 +116,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.documentElement.setAttribute('data-theme', 'dark');
                 localStorage.setItem('theme', 'dark');
             }
-            // Re-init particles for theme change
             if (typeof initParticles === 'function') initParticles();
         });
     }
@@ -236,12 +235,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            // Toggle active class
             filterBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-
             const filter = btn.getAttribute('data-filter');
-
             projectCards.forEach(card => {
                 if (filter === 'all' || card.getAttribute('data-status') === filter) {
                     card.classList.remove('filter-hidden');
@@ -257,16 +253,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (contactForm) {
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-
             const submitBtn = document.getElementById('form-submit');
             const submitText = submitBtn.querySelector('.submit-text');
             const submitLoading = submitBtn.querySelector('.submit-loading');
-
-            // Show loading state
             submitText.style.display = 'none';
             submitLoading.style.display = 'inline';
             submitBtn.disabled = true;
-
             try {
                 const formData = new FormData(contactForm);
                 const response = await fetch(contactForm.action, {
@@ -274,7 +266,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     body: formData,
                     headers: { 'Accept': 'application/json' }
                 });
-
                 if (response.ok) {
                     submitText.textContent = '✓ Message Sent!';
                     submitText.style.display = 'inline';
@@ -308,15 +299,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function initParticles() {
             if (animationId) cancelAnimationFrame(animationId);
-
             const heroSection = document.getElementById('home');
             canvas.width = heroSection.offsetWidth;
             canvas.height = heroSection.offsetHeight;
-
             const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
             const particleColor = isDark ? 'rgba(255, 255, 255,' : 'rgba(0, 0, 0,';
             const particleCount = Math.floor((canvas.width * canvas.height) / 15000);
-
             particles = [];
             for (let i = 0; i < particleCount; i++) {
                 particles.push({
@@ -329,27 +317,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     color: particleColor
                 });
             }
-
             function animate() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-
                 particles.forEach(p => {
                     p.x += p.speedX;
                     p.y += p.speedY;
-
-                    // Wrap around edges
                     if (p.x < 0) p.x = canvas.width;
                     if (p.x > canvas.width) p.x = 0;
                     if (p.y < 0) p.y = canvas.height;
                     if (p.y > canvas.height) p.y = 0;
-
                     ctx.beginPath();
                     ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
                     ctx.fillStyle = `${p.color}${p.opacity})`;
                     ctx.fill();
                 });
-
-                // Draw connections
                 for (let i = 0; i < particles.length; i++) {
                     for (let j = i + 1; j < particles.length; j++) {
                         const dx = particles[i].x - particles[j].x;
@@ -365,18 +346,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     }
                 }
-
                 animationId = requestAnimationFrame(animate);
             }
             animate();
         }
 
-        // Make initParticles available globally for theme toggle
         window.initParticles = initParticles;
-
         initParticles();
 
-        // Resize handler
         let resizeTimeout;
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimeout);
@@ -399,7 +376,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         }, { threshold: 0.4 });
-
         learningBars.forEach(bar => learningObserver.observe(bar));
     }
 
@@ -414,36 +390,29 @@ document.addEventListener('DOMContentLoaded', () => {
         document.addEventListener('mousemove', (e) => {
             cursorX = e.clientX;
             cursorY = e.clientY;
-
-            // Show cursor on first move
             if (!customCursor.classList.contains('visible')) {
                 customCursor.classList.add('visible');
                 cursorDot.classList.add('visible');
             }
         });
 
-        // Smooth follow for outer ring
         function animateCursor() {
             dotX += (cursorX - dotX) * 0.15;
             dotY += (cursorY - dotY) * 0.15;
-
             customCursor.style.left = `${dotX}px`;
             customCursor.style.top = `${dotY}px`;
             cursorDot.style.left = `${cursorX}px`;
             cursorDot.style.top = `${cursorY}px`;
-
             requestAnimationFrame(animateCursor);
         }
         animateCursor();
 
-        // Grow effect on interactive elements
         const interactiveElements = document.querySelectorAll('a, button, .pill, .badge-chip, .project-card, input, textarea, .filter-btn');
         interactiveElements.forEach(el => {
             el.addEventListener('mouseenter', () => customCursor.classList.add('active'));
             el.addEventListener('mouseleave', () => customCursor.classList.remove('active'));
         });
 
-        // Hide when cursor leaves window
         document.addEventListener('mouseleave', () => {
             customCursor.classList.remove('visible');
             cursorDot.classList.remove('visible');
@@ -453,6 +422,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cursorDot.classList.add('visible');
         });
     }
+
 });
 
 // Global function to copy email
@@ -470,3 +440,122 @@ window.copyEmail = function() {
         console.error('Failed to copy info: ', err);
     });
 };
+
+// 16. GitHub Live Stats
+(async function fetchGitHubStats() {
+    const GITHUB_USER = 'Lousieboyy';
+    const langColors = {
+        'JavaScript': '#f1e05a', 'Python': '#3572A5', 'Kotlin': '#A97BFF',
+        'Java': '#b07219', 'HTML': '#e34c26', 'CSS': '#563d7c',
+        'C#': '#178600', 'C++': '#f34b7d', 'PHP': '#4F5D95',
+        'TypeScript': '#2b7489', 'Dart': '#00B4AB', 'Shell': '#89e051'
+    };
+    try {
+        const [userRes, reposRes] = await Promise.all([
+            fetch(`https://api.github.com/users/${GITHUB_USER}`),
+            fetch(`https://api.github.com/users/${GITHUB_USER}/repos?per_page=100&sort=updated`)
+        ]);
+        if (!userRes.ok || !reposRes.ok) return;
+        const user = await userRes.json();
+        const repos = await reposRes.json();
+
+        let totalStars = 0;
+        const langCount = {};
+        repos.forEach(repo => {
+            totalStars += repo.stargazers_count || 0;
+            if (repo.language) langCount[repo.language] = (langCount[repo.language] || 0) + 1;
+        });
+
+        const elRepos = document.getElementById('gh-repos');
+        const elStars = document.getElementById('gh-stars');
+        const elFollowers = document.getElementById('gh-followers');
+        if (elRepos) elRepos.textContent = user.public_repos;
+        if (elStars) elStars.textContent = totalStars;
+        if (elFollowers) elFollowers.textContent = user.followers;
+
+        const sorted = Object.entries(langCount).sort((a, b) => b[1] - a[1]).slice(0, 5);
+        const total = sorted.reduce((s, [, v]) => s + v, 0);
+        const barEl = document.getElementById('gh-lang-bar');
+        const legendEl = document.getElementById('gh-lang-legend');
+        if (barEl && legendEl && sorted.length > 0) {
+            sorted.forEach(([lang, count]) => {
+                const pct = ((count / total) * 100).toFixed(1);
+                const color = langColors[lang] || '#8b949e';
+                const seg = document.createElement('div');
+                seg.className = 'github-lang-segment';
+                seg.style.background = color;
+                barEl.appendChild(seg);
+                setTimeout(() => { seg.style.width = `${pct}%`; }, 350);
+                const item = document.createElement('div');
+                item.className = 'github-lang-item';
+                item.innerHTML = `<span class="github-lang-dot" style="background:${color}"></span>${lang}`;
+                legendEl.appendChild(item);
+            });
+        }
+    } catch (e) {
+        const row = document.getElementById('github-stats-row');
+        if (row) row.style.display = 'none';
+    }
+})();
+
+// 17. Project Detail Modal
+(function initModal() {
+    const modalOverlay = document.getElementById('project-modal');
+    const modalClose = document.getElementById('modal-close');
+    if (!modalOverlay) return;
+
+    function openModal(card) {
+        const d = card.dataset;
+        document.getElementById('modal-image').src = d.image || '';
+        document.getElementById('modal-image').alt = d.title || '';
+        document.getElementById('modal-title').textContent = d.title || '';
+        document.getElementById('modal-desc').textContent = d.desc || '';
+
+        const badge = document.getElementById('modal-status-badge');
+        badge.textContent = d.status === 'finished' ? 'Finished' : 'Ongoing';
+        badge.className = 'modal-status-badge ' + (d.status || '');
+
+        const pillsEl = document.getElementById('modal-tech-pills');
+        pillsEl.innerHTML = '';
+        (d.tech || '').split(',').forEach(t => {
+            const s = document.createElement('span');
+            s.className = 'pill';
+            s.style.cssText = 'font-size:0.85rem;padding:0.45rem 1rem;cursor:default;';
+            s.textContent = t.trim();
+            pillsEl.appendChild(s);
+        });
+
+        const actionsEl = document.getElementById('modal-actions');
+        actionsEl.innerHTML = '';
+        if (d.repo) {
+            actionsEl.innerHTML += `<a href="${d.repo}" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="font-size:0.9rem;"><i class="devicon-github-original colored" style="margin-right:7px;"></i>View Repository</a>`;
+        }
+        if (d.demo) {
+            actionsEl.innerHTML += `<a href="${d.demo}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="font-size:0.9rem;">Watch Demo &rarr;</a>`;
+        }
+        if (!d.repo && !d.demo) {
+            actionsEl.innerHTML = `<span style="font-size:0.85rem;color:var(--text-muted);">Links coming soon</span>`;
+        }
+
+        modalOverlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        modalOverlay.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) closeModal();
+    });
+    if (modalClose) modalClose.addEventListener('click', closeModal);
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modalOverlay.classList.contains('open')) closeModal();
+    });
+
+    document.querySelectorAll('.project-card[data-title]').forEach(card => {
+        card.addEventListener('click', () => openModal(card));
+    });
+})();
