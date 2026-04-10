@@ -384,7 +384,26 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 14. Custom Cursor
+    // 14. Currently Learning Bars Animation
+    const learningBars = document.querySelectorAll('.learning-bar');
+    if (learningBars.length > 0) {
+        const learningObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const bar = entry.target;
+                    const targetWidth = bar.getAttribute('data-width');
+                    setTimeout(() => {
+                        bar.style.width = `${targetWidth}%`;
+                    }, 200);
+                    learningObserver.unobserve(bar);
+                }
+            });
+        }, { threshold: 0.4 });
+
+        learningBars.forEach(bar => learningObserver.observe(bar));
+    }
+
+    // 15. Custom Cursor
     const customCursor = document.getElementById('custom-cursor');
     const cursorDot = document.getElementById('cursor-dot');
 
