@@ -426,7 +426,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Global function to copy email
-window.copyEmail = function() {
+window.copyEmail = function () {
     const email = "mohamadhaikalrejab@gmail.com";
     navigator.clipboard.writeText(email).then(() => {
         const tooltip = document.getElementById("copy-tooltip");
@@ -559,3 +559,38 @@ window.copyEmail = function() {
         card.addEventListener('click', () => openModal(card));
     });
 })();
+
+// 18. Force Download function
+window.forceDownload = function (e, url, filename) {
+    e.preventDefault();
+    const btn = e.currentTarget;
+    const originalText = btn.innerHTML;
+    // Optional: show a loading state
+
+    fetch(url)
+        .then(response => {
+            if (!response.ok) throw new Error('Network response was not ok');
+            return response.blob();
+        })
+        .then(blob => {
+            const blobUrl = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = blobUrl;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(blobUrl);
+            a.remove();
+        })
+        .catch(err => {
+            console.error('Download failed, using fallback.', err);
+            // Fallback to default behavior
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+        });
+};
