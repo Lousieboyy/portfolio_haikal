@@ -421,6 +421,36 @@ document.addEventListener('DOMContentLoaded', () => {
             customCursor.classList.add('visible');
             cursorDot.classList.add('visible');
         });
+
+        // Cursor Particle Burst on Click
+        document.addEventListener('click', (e) => {
+            const burstCount = 12;
+            const colors = ['#ff0f7b', '#f89b29', '#06b6d4', '#a855f7'];
+            for (let i = 0; i < burstCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'cursor-particle';
+                const size = Math.random() * 6 + 3;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.left = `${e.clientX}px`;
+                particle.style.top = `${e.clientY}px`;
+                document.body.appendChild(particle);
+
+                const angle = Math.random() * Math.PI * 2;
+                const velocity = Math.random() * 50 + 20;
+                const tx = Math.cos(angle) * velocity;
+                const ty = Math.sin(angle) * velocity;
+
+                particle.animate([
+                    { transform: `translate(-50%, -50%) scale(1)`, opacity: 1 },
+                    { transform: `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(0)`, opacity: 0 }
+                ], {
+                    duration: Math.random() * 400 + 400,
+                    easing: 'cubic-bezier(0.16, 1, 0.3, 1)'
+                }).onfinish = () => particle.remove();
+            }
+        });
     }
 
 });
@@ -506,8 +536,40 @@ window.copyEmail = function () {
 
     function openModal(card) {
         const d = card.dataset;
-        document.getElementById('modal-image').src = d.image || '';
-        document.getElementById('modal-image').alt = d.title || '';
+        const modalImg = document.getElementById('modal-image');
+        const modalVideo = document.getElementById('modal-video');
+        const imageWrapper = document.getElementById('modal-image-wrapper');
+        
+        // Handle Video/Image
+        let embedUrl = null;
+        if (d.demo) {
+            let videoId = null;
+            if (d.demo.includes('youtu.be/')) {
+                videoId = d.demo.split('youtu.be/')[1].split('?')[0];
+            } else if (d.demo.includes('youtube.com/watch')) {
+                const urlParams = new URLSearchParams(new URL(d.demo).search);
+                videoId = urlParams.get('v');
+            }
+            if (videoId) embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+        }
+
+        if (embedUrl) {
+            modalImg.style.display = 'none';
+            modalVideo.style.display = 'block';
+            modalVideo.src = embedUrl;
+            imageWrapper.style.display = 'block';
+        } else if (d.image) {
+            modalVideo.style.display = 'none';
+            modalVideo.src = '';
+            modalImg.style.display = 'block';
+            modalImg.src = d.image;
+            modalImg.alt = d.title || '';
+            imageWrapper.style.display = 'block';
+        } else {
+            imageWrapper.style.display = 'none';
+            modalVideo.src = '';
+        }
+
         document.getElementById('modal-title').textContent = d.title || '';
         document.getElementById('modal-desc').textContent = d.desc || '';
 
@@ -544,6 +606,8 @@ window.copyEmail = function () {
     function closeModal() {
         modalOverlay.classList.remove('open');
         document.body.style.overflow = '';
+        const modalVideo = document.getElementById('modal-video');
+        if (modalVideo) modalVideo.src = ''; // stop video playback
     }
 
     modalOverlay.addEventListener('click', (e) => {
@@ -594,3 +658,282 @@ window.forceDownload = function (e, url, filename) {
             a.remove();
         });
 };
+
+// 19. Interactive Skills Radar Chart
+(function initRadarChart() {
+    const canvas = document.getElementById('radar-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const legendEl = document.getElementById('radar-legend');
+
+    const skills = [
+        { label: 'Mobile Dev',    value: 85, color: '#ff0f7b' },
+        { label: 'Web Dev',       value: 80, color: '#f89b29' },
+        { label: 'Backend / AI',  value: 65, color: '#a855f7' },
+        { label: 'UI/UX Design',  value: 70, color: '#06b6d4' },
+        { label: 'Version Ctrl',  value: 88, color: '#22c55e' },
+        { label: 'Problem Solving',value: 82, color: '#f43f5e' },
+    ];
+
+    const N = skills.length;
+    const CX = canvas.width / 2;
+    const CY = canvas.height / 2;
+    const RADIUS = canvas.width * 0.38;
+    const LEVELS = 5;
+    const ANGLE_STEP = (Math.PI * 2) / N;
+
+    // Tooltip
+    const tooltip = document.createElement('div');
+    tooltip.className = 'radar-tooltip';
+    document.body.appendChild(tooltip);
+
+    // Build legend
+    if (legendEl) {
+        skills.forEach(skill => {
+            const item = document.createElement('div');
+            item.className = 'radar-legend-item';
+            item.innerHTML = `<span class="radar-legend-dot" style="background:${skill.color}"></span>${skill.label}`;
+            legendEl.appendChild(item);
+        });
+    }
+
+    // Animation state
+    let animProgress = 0;
+    let animStartTime = null;
+    const ANIM_DURATION = 1200;
+    let hoveredIndex = -1;
+
+    function getIsDark() {
+        return document.documentElement.getAttribute('data-theme') === 'dark';
+    }
+
+    function getPointCoords(index, fraction) {
+        const angle = ANGLE_STEP * index - Math.PI / 2;
+        const r = RADIUS * fraction;
+        return {
+            x: CX + r * Math.cos(angle),
+            y: CY + r * Math.sin(angle)
+        };
+    }
+
+    function draw(progress) {
+        const isDark = getIsDark();
+        const gridColor   = isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.06)';
+        const labelColor  = isDark ? 'rgba(240,242,245,0.75)' : 'rgba(30,30,30,0.7)';
+        const axisColor   = isDark ? 'rgba(255,255,255,0.1)'  : 'rgba(0,0,0,0.08)';
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw concentric grid rings
+        for (let lvl = 1; lvl <= LEVELS; lvl++) {
+            const frac = lvl / LEVELS;
+            ctx.beginPath();
+            for (let i = 0; i < N; i++) {
+                const pt = getPointCoords(i, frac);
+                i === 0 ? ctx.moveTo(pt.x, pt.y) : ctx.lineTo(pt.x, pt.y);
+            }
+            ctx.closePath();
+            ctx.strokeStyle = gridColor;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+        }
+
+        // Draw axis lines from centre to each vertex
+        for (let i = 0; i < N; i++) {
+            const pt = getPointCoords(i, 1);
+            ctx.beginPath();
+            ctx.moveTo(CX, CY);
+            ctx.lineTo(pt.x, pt.y);
+            ctx.strokeStyle = axisColor;
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+        }
+
+        // Draw filled radar polygon (animated)
+        ctx.beginPath();
+        skills.forEach((skill, i) => {
+            const frac = (skill.value / 100) * progress;
+            const pt = getPointCoords(i, frac);
+            i === 0 ? ctx.moveTo(pt.x, pt.y) : ctx.lineTo(pt.x, pt.y);
+        });
+        ctx.closePath();
+
+        // Gradient fill
+        const grad = ctx.createRadialGradient(CX, CY, 0, CX, CY, RADIUS);
+        grad.addColorStop(0, isDark ? 'rgba(121,40,202,0.35)' : 'rgba(255,15,123,0.18)');
+        grad.addColorStop(1, isDark ? 'rgba(255,0,128,0.12)' : 'rgba(248,155,41,0.08)');
+        ctx.fillStyle = grad;
+        ctx.fill();
+        ctx.strokeStyle = isDark ? '#a855f7' : '#ff0f7b';
+        ctx.lineWidth = 2.5;
+        ctx.stroke();
+
+        // Draw vertex dots
+        skills.forEach((skill, i) => {
+            const frac = (skill.value / 100) * progress;
+            const pt = getPointCoords(i, frac);
+            const isHovered = hoveredIndex === i;
+
+            ctx.beginPath();
+            ctx.arc(pt.x, pt.y, isHovered ? 9 : 6, 0, Math.PI * 2);
+            ctx.fillStyle = skill.color;
+            ctx.fill();
+            ctx.strokeStyle = isDark ? '#0f1115' : '#ffffff';
+            ctx.lineWidth = isHovered ? 3 : 2;
+            ctx.stroke();
+
+            if (isHovered) {
+                ctx.beginPath();
+                ctx.arc(pt.x, pt.y, 15, 0, Math.PI * 2);
+                ctx.fillStyle = skill.color + '33';
+                ctx.fill();
+            }
+        });
+
+        // Draw axis labels
+        skills.forEach((skill, i) => {
+            const angle = ANGLE_STEP * i - Math.PI / 2;
+            const labelR = RADIUS + 32;
+            const lx = CX + labelR * Math.cos(angle);
+            const ly = CY + labelR * Math.sin(angle);
+
+            ctx.font = hoveredIndex === i
+                ? 'bold 13px Inter, sans-serif'
+                : '12px Inter, sans-serif';
+            ctx.fillStyle = hoveredIndex === i ? skill.color : labelColor;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(skill.label, lx, ly);
+        });
+
+        // Percentage labels at level rings (right axis)
+        ctx.font = '10px Inter, sans-serif';
+        ctx.fillStyle = isDark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.25)';
+        ctx.textAlign = 'left';
+        for (let lvl = 1; lvl <= LEVELS; lvl++) {
+            const frac = lvl / LEVELS;
+            const pt = getPointCoords(0, frac);
+            ctx.fillText(`${lvl * 20}%`, pt.x + 4, pt.y - 4);
+        }
+    }
+
+    function animate(ts) {
+        if (!animStartTime) animStartTime = ts;
+        const elapsed = ts - animStartTime;
+        animProgress = Math.min(elapsed / ANIM_DURATION, 1);
+        // Ease out cubic
+        const eased = 1 - Math.pow(1 - animProgress, 3);
+        draw(eased);
+        if (animProgress < 1) requestAnimationFrame(animate);
+    }
+
+    // Kick off animation when section enters viewport
+    const radarObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animStartTime = null;
+                animProgress = 0;
+                requestAnimationFrame(animate);
+                radarObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 });
+    radarObserver.observe(canvas);
+
+    // Re-draw on theme change (observe attribute mutation)
+    const themeObserver = new MutationObserver(() => {
+        draw(1);
+    });
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+    // Hit detection for hover
+    canvas.addEventListener('mousemove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        const mx = (e.clientX - rect.left) * scaleX;
+        const my = (e.clientY - rect.top) * scaleY;
+
+        let found = -1;
+        skills.forEach((skill, i) => {
+            const frac = skill.value / 100;
+            const pt = getPointCoords(i, frac);
+            const dx = mx - pt.x;
+            const dy = my - pt.y;
+            if (Math.sqrt(dx * dx + dy * dy) < 18) found = i;
+        });
+
+        if (found !== hoveredIndex) {
+            hoveredIndex = found;
+            draw(1);
+        }
+
+        if (found !== -1) {
+            const skill = skills[found];
+            tooltip.textContent = `${skill.label}: ${skill.value}%`;
+            tooltip.style.left = `${e.clientX + 14}px`;
+            tooltip.style.top  = `${e.clientY - 36}px`;
+            tooltip.classList.add('visible');
+            canvas.style.cursor = 'pointer';
+        } else {
+            tooltip.classList.remove('visible');
+            canvas.style.cursor = 'crosshair';
+        }
+    });
+
+    canvas.addEventListener('mouseleave', () => {
+        hoveredIndex = -1;
+        tooltip.classList.remove('visible');
+        draw(1);
+    });
+
+    // Window resize — redraw
+    window.addEventListener('resize', () => draw(1));
+})();
+
+// 20. Visitor Counter Simulation
+(function initVisitorCounter() {
+    const counterEl = document.getElementById('visitor-count');
+    if (!counterEl) return;
+
+    // Simulate page views starting from a realistic base number
+    const BASE_VIEWS = 1428;
+    
+    // Check local storage for previous visits to make it dynamic per user
+    let localViews = parseInt(localStorage.getItem('page_views')) || 0;
+    
+    // Increment on load
+    localViews++;
+    localStorage.setItem('page_views', localViews.toString());
+    
+    const totalViews = BASE_VIEWS + localViews;
+    
+    // Animate digits
+    const digits = totalViews.toString().split('');
+    counterEl.innerHTML = ''; // clear initial placeholder
+    
+    digits.forEach((digit, index) => {
+        const span = document.createElement('span');
+        span.className = 'digit';
+        span.textContent = '0'; // start at 0
+        counterEl.appendChild(span);
+        
+        // Simple counter roll animation
+        setTimeout(() => {
+            let current = 0;
+            const target = parseInt(digit);
+            // Even if target is 0, let it cycle visually once
+            const rolls = target === 0 ? 10 : target; 
+            
+            const interval = setInterval(() => {
+                if (current >= rolls) {
+                    clearInterval(interval);
+                    span.textContent = target;
+                } else {
+                    current++;
+                    span.textContent = current % 10;
+                }
+            }, 60);
+        }, index * 150);
+    });
+})();

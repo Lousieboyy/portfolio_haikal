@@ -58,6 +58,7 @@
             <div style="display: flex; align-items: center; gap: 1.5rem;">
                 <ul class="nav-links" id="nav-links">
                     <li><a href="#home" aria-current="page">Home</a></li>
+                    <li><a href="#experience">Experience</a></li>
                     <li><a href="#projects">Projects</a></li>
                     <li><a href="#certificates">Certificates</a></li>
                     <li><a href="#background">Background</a></li>
@@ -101,6 +102,10 @@
             <canvas id="particle-canvas" class="particle-canvas"></canvas>
             <div class="container hero-container">
                 <div class="hero-content">
+                    <div class="availability-badge hero-anim" style="--anim-delay: 0.05s" aria-label="Availability status">
+                        <span class="avail-dot"></span>
+                        Open to Work
+                    </div>
                     <span class="greeting hero-anim" style="--anim-delay: 0.1s">Hello, world!</span>
                     <h1 class="hero-title hero-anim" style="--anim-delay: 0.2s">I'm <span class="highlight">Mohamad
                             Haikal</span></h1>
@@ -408,8 +413,66 @@
             </div>
         </section>
 
+        <!-- Skills Radar Chart Section -->
+        <section id="skills-radar" class="section">
+            <div class="container animate-on-scroll">
+                <h2 class="section-title">Skills Radar</h2>
+                <p class="section-subtitle">An interactive overview of my core competencies — hover over the chart to explore each skill.</p>
+                <div class="radar-wrapper">
+                    <canvas id="radar-canvas" width="500" height="500" aria-label="Skills radar chart"></canvas>
+                    <div class="radar-legend" id="radar-legend"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="section bg-light">
+            <div class="container animate-on-scroll">
+                <h2 class="section-title">Experience</h2>
+                <div class="experience-timeline">
+
+                    <div class="exp-card">
+                        <div class="exp-card-header">
+                            <div class="exp-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                                    <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"></path>
+                                    <line x1="12" y1="12" x2="12" y2="12"></line>
+                                    <path d="M12 12h.01"></path>
+                                </svg>
+                            </div>
+                            <div class="exp-meta">
+                                <span class="exp-type-badge">Internship</span>
+                                <h3 class="exp-title">Software Developer Intern</h3>
+                                <p class="exp-org">Digital Hub, Universiti Teknikal Malaysia Melaka (UTeM)</p>
+                                <span class="exp-date">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:5px;flex-shrink:0">
+                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                                    </svg>
+                                    15 July 2024 – 20 September 2024
+                                </span>
+                            </div>
+                        </div>
+                        <ul class="exp-duties">
+                            <li>Collaborated with the development team to assist in maintaining, troubleshooting and updating internal university systems.</li>
+                        </ul>
+                        <div class="exp-tags">
+                            <span class="exp-tag">System Maintenance</span>
+                            <span class="exp-tag">Troubleshooting</span>
+                            <span class="exp-tag">Team Collaboration</span>
+                            <span class="exp-tag">Internal Systems</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
         <!-- Projects Section -->
-        <section id="projects" class="section bg-light">
+        <section id="projects" class="section">
             <div class="container animate-on-scroll">
                 <h2 class="section-title">Past Projects</h2>
                 <div class="filter-tabs">
@@ -731,8 +794,62 @@
             </div>
         </section>
 
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="section">
+            <div class="container animate-on-scroll">
+                <h2 class="section-title">Kind Words</h2>
+                <p class="section-subtitle">What people I've worked with have to say.</p>
+                <div class="testimonials-grid">
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote-icon" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+                        </div>
+                        <p class="testimonial-text">Haikal is a fast learner and a reliable team member. He contributed meaningfully during his internship and always approached problems with a calm, systematic mindset.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar" style="background: linear-gradient(135deg, #ff0f7b, #f89b29);">SH</div>
+                            <div class="testimonial-info">
+                                <span class="testimonial-name">Supervisor</span>
+                                <span class="testimonial-role">Digital Hub, UTeM</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote-icon" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+                        </div>
+                        <p class="testimonial-text">Working with Haikal on CampusTutor was a great experience. He brought strong Kotlin skills and always pushed for clean, maintainable code even under deadline pressure.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar" style="background: linear-gradient(135deg, #a855f7, #06b6d4);">TM</div>
+                            <div class="testimonial-info">
+                                <span class="testimonial-name">Teammate</span>
+                                <span class="testimonial-role">CampusTutor Project, UTeM</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote-icon" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+                        </div>
+                        <p class="testimonial-text">Haikal demonstrates strong technical curiosity and an eye for good design. His ability to pick up new frameworks quickly — from Kotlin to Flutter to Python — is genuinely impressive for his level.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar" style="background: linear-gradient(135deg, #22c55e, #06b6d4);">DR</div>
+                            <div class="testimonial-info">
+                                <span class="testimonial-name">Dr. Rozilawati</span>
+                                <span class="testimonial-role">Lecturer, FTMK UTeM</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
         <!-- Contact Section -->
-        <section id="contact" class="section">
+        <section id="contact" class="section bg-light">
             <div class="container animate-on-scroll">
                 <div class="contact-box">
                     <h2 class="section-title">Let's Connect</h2>
@@ -810,6 +927,7 @@
                     <h4>Quick Links</h4>
                     <ul>
                         <li><a href="#home">Home</a></li>
+                        <li><a href="#experience">Experience</a></li>
                         <li><a href="#projects">Projects</a></li>
                         <li><a href="#certificates">Certificates</a></li>
                         <li><a href="#background">Background</a></li>
@@ -844,6 +962,12 @@
                             </svg>
                         </a>
                     </div>
+                    <div class="visitor-box" style="margin-top: 1.5rem;">
+                        <span class="visitor-title" style="display: block; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 0.5rem;">Page Views</span>
+                        <div class="visitor-count" id="visitor-count" style="display: inline-flex; gap: 4px;">
+                            <!-- Digits will be injected by JS -->
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="footer-bottom">
@@ -875,8 +999,9 @@
                     <line x1="6" y1="6" x2="18" y2="18" />
                 </svg>
             </button>
-            <div class="modal-image-wrapper">
+            <div class="modal-image-wrapper" id="modal-image-wrapper">
                 <img src="" alt="" id="modal-image" class="modal-image">
+                <iframe id="modal-video" class="modal-video" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="display: none; width: 100%; height: 260px;"></iframe>
                 <span class="modal-status-badge" id="modal-status-badge"></span>
             </div>
             <div class="modal-body">
