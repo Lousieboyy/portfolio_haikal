@@ -425,7 +425,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Cursor Particle Burst on Click
         document.addEventListener('click', (e) => {
             const burstCount = 12;
-            const colors = ['#ff0f7b', '#f89b29', '#06b6d4', '#a855f7'];
+            const colors = ['#3b82f6', '#facc15', '#06b6d4', '#a855f7'];
             for (let i = 0; i < burstCount; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'cursor-particle';
@@ -451,6 +451,275 @@ document.addEventListener('DOMContentLoaded', () => {
                 }).onfinish = () => particle.remove();
             }
         });
+    }
+
+    // 16. 3D Card Tilt Effect
+    const tiltCards = document.querySelectorAll('.tilt-card');
+    tiltCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const cx = rect.width / 2;
+            const cy = rect.height / 2;
+            const rotateY = ((x - cx) / cx) * 8;
+            const rotateX = -((y - cy) / cy) * 5;
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)';
+        });
+    });
+
+    // 17. Building-Now Widget Dismiss
+    const buildingWidget = document.getElementById('building-now-widget');
+    const buildingClose = document.getElementById('building-now-close');
+    if (buildingWidget && buildingClose) {
+        if (sessionStorage.getItem('buildingWidgetDismissed')) {
+            buildingWidget.style.display = 'none';
+        }
+        buildingClose.addEventListener('click', () => {
+            buildingWidget.classList.add('dismissed');
+            setTimeout(() => {
+                buildingWidget.style.display = 'none';
+            }, 420);
+            sessionStorage.setItem('buildingWidgetDismissed', '1');
+        });
+    }
+
+    // 18. Staggered Card Reveal Animations
+    const staggerSelectors = [
+        '.service-card', '.project-card', '.testimonial-card',
+        '.stat-card', '.skill-category', '.exp-card', '.learning-item'
+    ];
+    const staggerObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                staggerObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.12 });
+
+    staggerSelectors.forEach(sel => {
+        document.querySelectorAll(sel).forEach((el, i) => {
+            el.classList.add('stagger-child');
+            el.style.setProperty('--stagger-delay', `${i * 0.08}s`);
+            staggerObserver.observe(el);
+        });
+    });
+
+    // 19. Keyboard Shortcuts
+    const kbdOverlay = document.getElementById('kbd-overlay');
+    const kbdClose = document.getElementById('kbd-close');
+    const kbdHintBubble = document.getElementById('kbd-hint-bubble');
+
+    function openKbdOverlay() {
+        if (kbdOverlay) { kbdOverlay.removeAttribute('hidden'); document.body.style.overflow = 'hidden'; }
+    }
+    function closeKbdOverlay() {
+        if (kbdOverlay) { kbdOverlay.setAttribute('hidden', ''); document.body.style.overflow = ''; }
+    }
+    if (kbdClose) kbdClose.addEventListener('click', closeKbdOverlay);
+    if (kbdHintBubble) kbdHintBubble.addEventListener('click', openKbdOverlay);
+
+    // Toast notification for keyboard shortcuts
+    function showKbdToast(msg) {
+        let toast = document.getElementById('kbd-toast');
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.id = 'kbd-toast';
+            toast.style.cssText = `position:fixed;bottom:5rem;left:50%;transform:translateX(-50%);background:var(--card-bg);border:1px solid var(--border-color);color:var(--text-main);font-size:0.82rem;font-weight:600;padding:0.5rem 1.2rem;border-radius:50px;box-shadow:var(--shadow-md);z-index:9999;pointer-events:none;transition:opacity 0.3s ease;`;
+            document.body.appendChild(toast);
+        }
+        toast.textContent = msg;
+        toast.style.opacity = '1';
+        clearTimeout(toast._timeout);
+        toast._timeout = setTimeout(() => { toast.style.opacity = '0'; }, 1800);
+    }
+
+    document.addEventListener('keydown', (e) => {
+        const tag = document.activeElement.tagName;
+        if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+
+        if (e.key === 'Escape') {
+            closeKbdOverlay();
+            closeResumeModal();
+            return;
+        }
+        if (e.key === '?') { openKbdOverlay(); return; }
+
+        switch (e.key.toLowerCase()) {
+            case 't':
+                document.getElementById('theme-toggle')?.click();
+                showKbdToast('🎨 Theme toggled');
+                break;
+            case 'g':
+                window.open('https://github.com/Lousieboyy', '_blank', 'noopener');
+                showKbdToast('🐙 Opening GitHub…');
+                break;
+            case 'c':
+                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                showKbdToast('✉️ Jumped to Contact');
+                break;
+            case 'p':
+                document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+                showKbdToast('🚀 Jumped to Projects');
+                break;
+            case 'r':
+                openResumeModal();
+                break;
+        }
+    });
+
+    // 20. Resume Preview Modal
+    const resumeModal = document.getElementById('resume-modal');
+    const resumePreviewBtn = document.getElementById('resume-preview-btn');
+    const resumeModalClose = document.getElementById('resume-modal-close');
+
+    function openResumeModal() {
+        if (resumeModal) { resumeModal.removeAttribute('hidden'); document.body.style.overflow = 'hidden'; }
+    }
+    function closeResumeModal() {
+        if (resumeModal) { resumeModal.setAttribute('hidden', ''); document.body.style.overflow = ''; }
+    }
+    if (resumePreviewBtn) resumePreviewBtn.addEventListener('click', openResumeModal);
+    if (resumeModalClose) resumeModalClose.addEventListener('click', closeResumeModal);
+    if (resumeModal) {
+        resumeModal.addEventListener('click', (e) => { if (e.target === resumeModal) closeResumeModal(); });
+    }
+
+    // 21. Fun Facts Ticker
+    const funFacts = document.querySelectorAll('.fun-fact');
+    if (funFacts.length > 1) {
+        let currentFact = 0;
+        let factInterval;
+        const ticker = document.getElementById('fun-facts-ticker');
+
+        function rotateFact() {
+            const prev = funFacts[currentFact];
+            prev.classList.remove('active');
+            prev.classList.add('exit');
+            setTimeout(() => prev.classList.remove('exit'), 460);
+            currentFact = (currentFact + 1) % funFacts.length;
+            funFacts[currentFact].classList.add('active');
+        }
+
+        factInterval = setInterval(rotateFact, 4000);
+
+        if (ticker) {
+            ticker.addEventListener('mouseenter', () => clearInterval(factInterval));
+            ticker.addEventListener('mouseleave', () => { factInterval = setInterval(rotateFact, 4000); });
+        }
+    }
+
+    // 22. Time-Based Dynamic Greeting
+    const greetingEl = document.getElementById('hero-greeting');
+    if (greetingEl) {
+        const hour = new Date().getHours();
+        let greetText;
+        if (hour >= 5 && hour < 12)       greetText = 'Good morning! ☀️';
+        else if (hour >= 12 && hour < 17)  greetText = 'Good afternoon! 🌤️';
+        else if (hour >= 17 && hour < 21)  greetText = 'Good evening! 🌅';
+        else                               greetText = 'Hello, night owl! 🌙';
+        greetingEl.textContent = greetText;
+    }
+
+    // 23. Magnetic Button Hover Effect
+    const magneticBtns = document.querySelectorAll('.magnetic-btn');
+    if (window.matchMedia('(pointer: fine)').matches) {
+        magneticBtns.forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                const dx = x * 0.25;
+                const dy = y * 0.25;
+                const maxD = 10;
+                const clampX = Math.max(-maxD, Math.min(maxD, dx));
+                const clampY = Math.max(-maxD, Math.min(maxD, dy));
+                btn.style.transform = `translate(${clampX}px, ${clampY}px)`;
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'translate(0, 0)';
+            });
+        });
+    }
+
+    // 24. Scroll to Explore Indicator — fade out on scroll
+    const scrollIndicator = document.getElementById('scroll-indicator');
+    if (scrollIndicator) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 200) {
+                scrollIndicator.classList.add('hidden');
+            } else {
+                scrollIndicator.classList.remove('hidden');
+            }
+        }, { passive: true });
+    }
+
+    // 25. Project Card Cursor Glow
+    const glowColors = ['#3b82f6', '#facc15', '#a855f7', '#06b6d4', '#22c55e', '#f43f5e', '#3b82f6'];
+    document.querySelectorAll('.project-card').forEach((card, i) => {
+        const glow = document.createElement('div');
+        glow.className = 'project-card-glow';
+        glow.style.background = glowColors[i % glowColors.length];
+        card.appendChild(glow);
+
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            glow.style.left = `${e.clientX - rect.left}px`;
+            glow.style.top = `${e.clientY - rect.top}px`;
+        });
+    });
+
+    // 26. Konami Code Easter Egg
+    const konamiSequence = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+    let konamiIndex = 0;
+    document.addEventListener('keydown', (e) => {
+        if (e.key === konamiSequence[konamiIndex] || e.key.toLowerCase() === konamiSequence[konamiIndex]) {
+            konamiIndex++;
+            if (konamiIndex === konamiSequence.length) {
+                konamiIndex = 0;
+                triggerKonami();
+            }
+        } else {
+            konamiIndex = 0;
+        }
+    });
+
+    function triggerKonami() {
+        const colors = ['#3b82f6','#facc15','#a855f7','#06b6d4','#22c55e','#f43f5e','#fbbf24','#3b82f6'];
+        for (let i = 0; i < 80; i++) {
+            const confetti = document.createElement('div');
+            confetti.className = 'konami-confetti';
+            confetti.style.left = `${Math.random() * 100}vw`;
+            confetti.style.top = `-10px`;
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.width = `${Math.random() * 8 + 5}px`;
+            confetti.style.height = `${Math.random() * 8 + 5}px`;
+            confetti.style.animationDuration = `${Math.random() * 2 + 2}s`;
+            confetti.style.animationDelay = `${Math.random() * 0.5}s`;
+            document.body.appendChild(confetti);
+            setTimeout(() => confetti.remove(), 4500);
+        }
+        const toast = document.createElement('div');
+        toast.className = 'konami-toast';
+        toast.innerHTML = '🎉 You found it!<span>↑↑↓↓←→←→BA — Achievement Unlocked</span>';
+        document.body.appendChild(toast);
+        setTimeout(() => { toast.style.opacity = '0'; toast.style.transition = 'opacity 0.5s'; }, 3000);
+        setTimeout(() => toast.remove(), 3600);
+    }
+
+    // 27. Reading Progress Bar
+    const progressBar = document.getElementById('reading-progress');
+    if (progressBar) {
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (scrollTop / scrollHeight) * 100;
+            progressBar.style.width = scrolled + '%';
+        }, { passive: true });
     }
 
 });
@@ -667,8 +936,8 @@ window.forceDownload = function (e, url, filename) {
     const legendEl = document.getElementById('radar-legend');
 
     const skills = [
-        { label: 'Mobile Dev',    value: 85, color: '#ff0f7b' },
-        { label: 'Web Dev',       value: 80, color: '#f89b29' },
+        { label: 'Mobile Dev',    value: 85, color: '#3b82f6' },
+        { label: 'Web Dev',       value: 80, color: '#facc15' },
         { label: 'Backend / AI',  value: 65, color: '#a855f7' },
         { label: 'UI/UX Design',  value: 70, color: '#06b6d4' },
         { label: 'Version Ctrl',  value: 88, color: '#22c55e' },
@@ -760,11 +1029,11 @@ window.forceDownload = function (e, url, filename) {
 
         // Gradient fill
         const grad = ctx.createRadialGradient(CX, CY, 0, CX, CY, RADIUS);
-        grad.addColorStop(0, isDark ? 'rgba(121,40,202,0.35)' : 'rgba(255,15,123,0.18)');
-        grad.addColorStop(1, isDark ? 'rgba(255,0,128,0.12)' : 'rgba(248,155,41,0.08)');
+        grad.addColorStop(0, isDark ? 'rgba(59, 130, 246,0.35)' : 'rgba(59, 130, 246,0.18)');
+        grad.addColorStop(1, isDark ? 'rgba(250, 204, 21,0.12)' : 'rgba(250, 204, 21,0.08)');
         ctx.fillStyle = grad;
         ctx.fill();
-        ctx.strokeStyle = isDark ? '#a855f7' : '#ff0f7b';
+        ctx.strokeStyle = isDark ? '#a855f7' : '#3b82f6';
         ctx.lineWidth = 2.5;
         ctx.stroke();
 
