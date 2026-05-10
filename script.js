@@ -8,17 +8,24 @@ const initTheme = () => {
 };
 initTheme();
 
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.setAttribute('data-reduced-motion', 'true');
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+
+    const reducedMotion = document.documentElement.getAttribute('data-reduced-motion') === 'true';
 
     // 0. Preloader
     const preloader = document.getElementById('preloader');
     if (preloader) {
+        const dismissMs = reducedMotion ? 600 : 1200;
         setTimeout(() => {
             preloader.classList.add('hidden');
             preloader.addEventListener('transitionend', () => {
                 preloader.remove();
             }, { once: true });
-        }, 2500);
+        }, dismissMs);
     }
 
     // 1. Hamburger Menu
@@ -60,6 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 2. Smooth Scrolling for Navigation Links
     const navLinksAll = document.querySelectorAll('.nav-links a');
+    const scrollBehavior = reducedMotion ? 'instant' : 'smooth';
     navLinksAll.forEach(link => {
         link.addEventListener('click', function (e) {
             e.preventDefault();
@@ -67,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (targetId === '#') return;
             const targetDOM = document.querySelector(targetId);
             if (targetDOM) {
-                targetDOM.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                targetDOM.scrollIntoView({ behavior: scrollBehavior, block: 'start' });
             }
             closeMobileNav();
         });
@@ -123,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 6. Scroll-based Glass Shine and 3D Effect
     const glassShine = document.querySelector('.glass-shine');
     const glassContainer = document.querySelector('.glass-container');
-    if (glassShine || glassContainer) {
+    if (!reducedMotion && (glassShine || glassContainer)) {
         window.addEventListener('scroll', () => {
             const scrollY = window.scrollY;
             if (glassShine) {
@@ -153,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 8. Typing Animation
     const typingText = document.querySelector('.typing-text');
     if (typingText) {
-        const words = ['Software Developer', 'UI/UX Enthusiast', 'Tech Explorer'];
+        const words = ['Software Developer', 'Aspiring QA Tester', 'UI/UX Enthusiast', 'Tech Explorer'];
         let wordIndex = 0, charIndex = 0, isDeleting = false, typeSpeed = 100;
         function type() {
             const currentWord = words[wordIndex];
@@ -187,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         backToTopBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            window.scrollTo({ top: 0, behavior: reducedMotion ? 'instant' : 'smooth' });
             history.pushState(null, null, '#home');
         });
     }
@@ -256,8 +264,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const submitBtn = document.getElementById('form-submit');
             const submitText = submitBtn.querySelector('.submit-text');
             const submitLoading = submitBtn.querySelector('.submit-loading');
-            submitText.style.display = 'none';
-            submitLoading.style.display = 'inline';
+            submitText.hidden = true;
+            submitLoading.hidden = false;
             submitBtn.disabled = true;
             try {
                 const formData = new FormData(contactForm);
@@ -267,9 +275,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     headers: { 'Accept': 'application/json' }
                 });
                 if (response.ok) {
-                    submitText.textContent = '✓ Message Sent!';
-                    submitText.style.display = 'inline';
-                    submitLoading.style.display = 'none';
+                    submitText.textContent = 'Message sent';
+                    submitText.hidden = false;
+                    submitLoading.hidden = true;
                     contactForm.reset();
                     setTimeout(() => {
                         submitText.textContent = 'Send Message';
@@ -279,9 +287,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     throw new Error('Form submission failed');
                 }
             } catch (error) {
-                submitText.textContent = '✗ Error. Try again.';
-                submitText.style.display = 'inline';
-                submitLoading.style.display = 'none';
+                submitText.textContent = 'Could not send. Try again.';
+                submitText.hidden = false;
+                submitLoading.hidden = true;
                 setTimeout(() => {
                     submitText.textContent = 'Send Message';
                     submitBtn.disabled = false;
@@ -292,7 +300,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 13. Particle Background
     const canvas = document.getElementById('particle-canvas');
-    if (canvas) {
+    if (canvas && !reducedMotion) {
         const ctx = canvas.getContext('2d');
         let particles = [];
         let animationId;
@@ -379,83 +387,9 @@ document.addEventListener('DOMContentLoaded', () => {
         learningBars.forEach(bar => learningObserver.observe(bar));
     }
 
-    // 15. Custom Cursor
-    const customCursor = document.getElementById('custom-cursor');
-    const cursorDot = document.getElementById('cursor-dot');
-
-    if (customCursor && cursorDot && window.matchMedia('(pointer: fine)').matches) {
-        let cursorX = 0, cursorY = 0;
-        let dotX = 0, dotY = 0;
-
-        document.addEventListener('mousemove', (e) => {
-            cursorX = e.clientX;
-            cursorY = e.clientY;
-            if (!customCursor.classList.contains('visible')) {
-                customCursor.classList.add('visible');
-                cursorDot.classList.add('visible');
-            }
-        });
-
-        function animateCursor() {
-            dotX += (cursorX - dotX) * 0.15;
-            dotY += (cursorY - dotY) * 0.15;
-            customCursor.style.left = `${dotX}px`;
-            customCursor.style.top = `${dotY}px`;
-            cursorDot.style.left = `${cursorX}px`;
-            cursorDot.style.top = `${cursorY}px`;
-            requestAnimationFrame(animateCursor);
-        }
-        animateCursor();
-
-        const interactiveElements = document.querySelectorAll('a, button, .pill, .badge-chip, .project-card, input, textarea, .filter-btn');
-        interactiveElements.forEach(el => {
-            el.addEventListener('mouseenter', () => customCursor.classList.add('active'));
-            el.addEventListener('mouseleave', () => customCursor.classList.remove('active'));
-        });
-
-        document.addEventListener('mouseleave', () => {
-            customCursor.classList.remove('visible');
-            cursorDot.classList.remove('visible');
-        });
-        document.addEventListener('mouseenter', () => {
-            customCursor.classList.add('visible');
-            cursorDot.classList.add('visible');
-        });
-
-        // Cursor Particle Burst on Click
-        document.addEventListener('click', (e) => {
-            const burstCount = 12;
-            const colors = ['#3b82f6', '#facc15', '#06b6d4', '#a855f7'];
-            for (let i = 0; i < burstCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'cursor-particle';
-                const size = Math.random() * 6 + 3;
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                particle.style.left = `${e.clientX}px`;
-                particle.style.top = `${e.clientY}px`;
-                document.body.appendChild(particle);
-
-                const angle = Math.random() * Math.PI * 2;
-                const velocity = Math.random() * 50 + 20;
-                const tx = Math.cos(angle) * velocity;
-                const ty = Math.sin(angle) * velocity;
-
-                particle.animate([
-                    { transform: `translate(-50%, -50%) scale(1)`, opacity: 1 },
-                    { transform: `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(0)`, opacity: 0 }
-                ], {
-                    duration: Math.random() * 400 + 400,
-                    easing: 'cubic-bezier(0.16, 1, 0.3, 1)'
-                }).onfinish = () => particle.remove();
-            }
-        });
-    }
-
-    // 16. 3D Card Tilt Effect
+    // 15. 3D Card Tilt Effect
     const tiltCards = document.querySelectorAll('.tilt-card');
-    tiltCards.forEach(card => {
+    if (!reducedMotion) tiltCards.forEach(card => {
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
@@ -471,7 +405,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 17. Building-Now Widget Dismiss
+    // 16. Building-Now Widget Dismiss
     const buildingWidget = document.getElementById('building-now-widget');
     const buildingClose = document.getElementById('building-now-close');
     if (buildingWidget && buildingClose) {
@@ -501,13 +435,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, { threshold: 0.12 });
 
-    staggerSelectors.forEach(sel => {
-        document.querySelectorAll(sel).forEach((el, i) => {
-            el.classList.add('stagger-child');
-            el.style.setProperty('--stagger-delay', `${i * 0.08}s`);
-            staggerObserver.observe(el);
+    if (!reducedMotion) {
+        staggerSelectors.forEach(sel => {
+            document.querySelectorAll(sel).forEach((el, i) => {
+                el.classList.add('stagger-child');
+                el.style.setProperty('--stagger-delay', `${i * 0.08}s`);
+                staggerObserver.observe(el);
+            });
         });
-    });
+    }
 
     // 19. Keyboard Shortcuts
     const kbdOverlay = document.getElementById('kbd-overlay');
@@ -552,19 +488,19 @@ document.addEventListener('DOMContentLoaded', () => {
         switch (e.key.toLowerCase()) {
             case 't':
                 document.getElementById('theme-toggle')?.click();
-                showKbdToast('🎨 Theme toggled');
+                showKbdToast('Theme updated');
                 break;
             case 'g':
                 window.open('https://github.com/Lousieboyy', '_blank', 'noopener');
-                showKbdToast('🐙 Opening GitHub…');
+                showKbdToast('Opening GitHub');
                 break;
             case 'c':
-                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-                showKbdToast('✉️ Jumped to Contact');
+                document.getElementById('contact')?.scrollIntoView({ behavior: reducedMotion ? 'instant' : 'smooth' });
+                showKbdToast('Contact section');
                 break;
             case 'p':
-                document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
-                showKbdToast('🚀 Jumped to Projects');
+                document.getElementById('projects')?.scrollIntoView({ behavior: reducedMotion ? 'instant' : 'smooth' });
+                showKbdToast('Projects section');
                 break;
             case 'r':
                 openResumeModal();
@@ -627,7 +563,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 23. Magnetic Button Hover Effect
     const magneticBtns = document.querySelectorAll('.magnetic-btn');
-    if (window.matchMedia('(pointer: fine)').matches) {
+    if (!reducedMotion && window.matchMedia('(pointer: fine)').matches) {
         magneticBtns.forEach(btn => {
             btn.addEventListener('mousemove', (e) => {
                 const rect = btn.getBoundingClientRect();
@@ -658,71 +594,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { passive: true });
     }
 
-    // 25. Project Card Cursor Glow
-    const glowColors = ['#3b82f6', '#facc15', '#a855f7', '#06b6d4', '#22c55e', '#f43f5e', '#3b82f6'];
-    document.querySelectorAll('.project-card').forEach((card, i) => {
-        const glow = document.createElement('div');
-        glow.className = 'project-card-glow';
-        glow.style.background = glowColors[i % glowColors.length];
-        card.appendChild(glow);
-
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            glow.style.left = `${e.clientX - rect.left}px`;
-            glow.style.top = `${e.clientY - rect.top}px`;
-        });
-    });
-
-    // 26. Konami Code Easter Egg
-    const konamiSequence = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
-    let konamiIndex = 0;
-    document.addEventListener('keydown', (e) => {
-        if (e.key === konamiSequence[konamiIndex] || e.key.toLowerCase() === konamiSequence[konamiIndex]) {
-            konamiIndex++;
-            if (konamiIndex === konamiSequence.length) {
-                konamiIndex = 0;
-                triggerKonami();
-            }
-        } else {
-            konamiIndex = 0;
-        }
-    });
-
-    function triggerKonami() {
-        const colors = ['#3b82f6','#facc15','#a855f7','#06b6d4','#22c55e','#f43f5e','#fbbf24','#3b82f6'];
-        for (let i = 0; i < 80; i++) {
-            const confetti = document.createElement('div');
-            confetti.className = 'konami-confetti';
-            confetti.style.left = `${Math.random() * 100}vw`;
-            confetti.style.top = `-10px`;
-            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            confetti.style.width = `${Math.random() * 8 + 5}px`;
-            confetti.style.height = `${Math.random() * 8 + 5}px`;
-            confetti.style.animationDuration = `${Math.random() * 2 + 2}s`;
-            confetti.style.animationDelay = `${Math.random() * 0.5}s`;
-            document.body.appendChild(confetti);
-            setTimeout(() => confetti.remove(), 4500);
-        }
-        const toast = document.createElement('div');
-        toast.className = 'konami-toast';
-        toast.innerHTML = '🎉 You found it!<span>↑↑↓↓←→←→BA — Achievement Unlocked</span>';
-        document.body.appendChild(toast);
-        setTimeout(() => { toast.style.opacity = '0'; toast.style.transition = 'opacity 0.5s'; }, 3000);
-        setTimeout(() => toast.remove(), 3600);
-    }
-
-    // 27. Reading Progress Bar
-    const progressBar = document.getElementById('reading-progress');
-    if (progressBar) {
-        window.addEventListener('scroll', () => {
-            const scrollTop = window.scrollY || document.documentElement.scrollTop;
-            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (scrollTop / scrollHeight) * 100;
-            progressBar.style.width = scrolled + '%';
-        }, { passive: true });
-    }
-
 });
+
 
 // Global function to copy email
 window.copyEmail = function () {
@@ -823,20 +696,21 @@ window.copyEmail = function () {
         }
 
         if (embedUrl) {
-            modalImg.style.display = 'none';
-            modalVideo.style.display = 'block';
+            modalImg.classList.add('is-hidden');
+            modalVideo.classList.remove('is-hidden');
             modalVideo.src = embedUrl;
             imageWrapper.style.display = 'block';
         } else if (d.image) {
-            modalVideo.style.display = 'none';
+            modalVideo.classList.add('is-hidden');
             modalVideo.src = '';
-            modalImg.style.display = 'block';
+            modalImg.classList.remove('is-hidden');
             modalImg.src = d.image;
             modalImg.alt = d.title || '';
             imageWrapper.style.display = 'block';
         } else {
             imageWrapper.style.display = 'none';
             modalVideo.src = '';
+            modalVideo.classList.add('is-hidden');
         }
 
         document.getElementById('modal-title').textContent = d.title || '';
@@ -851,7 +725,6 @@ window.copyEmail = function () {
         (d.tech || '').split(',').forEach(t => {
             const s = document.createElement('span');
             s.className = 'pill';
-            s.style.cssText = 'font-size:0.85rem;padding:0.45rem 1rem;cursor:default;';
             s.textContent = t.trim();
             pillsEl.appendChild(s);
         });
@@ -859,13 +732,13 @@ window.copyEmail = function () {
         const actionsEl = document.getElementById('modal-actions');
         actionsEl.innerHTML = '';
         if (d.repo) {
-            actionsEl.innerHTML += `<a href="${d.repo}" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="font-size:0.9rem;"><i class="devicon-github-original colored" style="margin-right:7px;"></i>View Repository</a>`;
+            actionsEl.innerHTML += `<a href="${d.repo}" target="_blank" rel="noopener noreferrer" class="btn btn-primary"><i class="devicon-github-original colored devicon-link-inline"></i>View Repository</a>`;
         }
         if (d.demo) {
-            actionsEl.innerHTML += `<a href="${d.demo}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="font-size:0.9rem;">Watch Demo &rarr;</a>`;
+            actionsEl.innerHTML += `<a href="${d.demo}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Watch demo</a>`;
         }
         if (!d.repo && !d.demo) {
-            actionsEl.innerHTML = `<span style="font-size:0.85rem;color:var(--text-muted);">Links coming soon</span>`;
+            actionsEl.innerHTML = `<span class="modal-links-placeholder">Links coming soon</span>`;
         }
 
         modalOverlay.classList.add('open');
@@ -936,12 +809,12 @@ window.forceDownload = function (e, url, filename) {
     const legendEl = document.getElementById('radar-legend');
 
     const skills = [
-        { label: 'Mobile Dev',    value: 85, color: '#3b82f6' },
-        { label: 'Web Dev',       value: 80, color: '#facc15' },
-        { label: 'Backend / AI',  value: 65, color: '#a855f7' },
-        { label: 'UI/UX Design',  value: 70, color: '#06b6d4' },
-        { label: 'Version Ctrl',  value: 88, color: '#22c55e' },
-        { label: 'Problem Solving',value: 82, color: '#f43f5e' },
+        { label: 'Mobile Dev',    value: 85, color: '#1e3a5f' },
+        { label: 'Web Dev',       value: 80, color: '#334155' },
+        { label: 'Backend / AI',  value: 65, color: '#475569' },
+        { label: 'UI/UX Design',  value: 70, color: '#64748b' },
+        { label: 'Version Ctrl',  value: 88, color: '#1e40af' },
+        { label: 'Problem Solving',value: 82, color: '#0f766e' },
     ];
 
     const N = skills.length;
@@ -1029,11 +902,11 @@ window.forceDownload = function (e, url, filename) {
 
         // Gradient fill
         const grad = ctx.createRadialGradient(CX, CY, 0, CX, CY, RADIUS);
-        grad.addColorStop(0, isDark ? 'rgba(59, 130, 246,0.35)' : 'rgba(59, 130, 246,0.18)');
-        grad.addColorStop(1, isDark ? 'rgba(250, 204, 21,0.12)' : 'rgba(250, 204, 21,0.08)');
+        grad.addColorStop(0, isDark ? 'rgba(147, 197, 253, 0.22)' : 'rgba(30, 58, 95, 0.18)');
+        grad.addColorStop(1, isDark ? 'rgba(148, 163, 184, 0.08)' : 'rgba(71, 85, 105, 0.06)');
         ctx.fillStyle = grad;
         ctx.fill();
-        ctx.strokeStyle = isDark ? '#a855f7' : '#3b82f6';
+        ctx.strokeStyle = isDark ? '#93c5fd' : '#1e3a5f';
         ctx.lineWidth = 2.5;
         ctx.stroke();
 
