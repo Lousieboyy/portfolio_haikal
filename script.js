@@ -1,7 +1,7 @@
 // Theme initialization
 const initTheme = () => {
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-    const currentTheme = localStorage.getItem('theme') || (prefersDark.matches ? 'dark' : 'light');
+    const currentTheme = localStorage.getItem('theme') || 'dark';
     if (currentTheme === 'dark') {
         document.documentElement.setAttribute('data-theme', 'dark');
     }
@@ -128,25 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 6. Scroll-based Glass Shine and 3D Effect
-    const glassShine = document.querySelector('.glass-shine');
-    const glassContainer = document.querySelector('.glass-container');
-    if (!reducedMotion && (glassShine || glassContainer)) {
-        window.addEventListener('scroll', () => {
-            const scrollY = window.scrollY;
-            if (glassShine) {
-                const shinePos = Math.min((scrollY / 600) * 350 - 150, 200);
-                glassShine.style.left = `${shinePos}%`;
-            }
-            if (glassContainer) {
-                const rotateY = -15 + (scrollY * 0.04);
-                const rotateX = 10 - (scrollY * 0.02);
-                glassContainer.style.transform = `rotateY(${Math.min(Math.max(rotateY, -15), 0)}deg) rotateX(${Math.min(Math.max(rotateX, 0), 10)}deg)`;
-            }
-        });
-    }
-
-    // 7. Scroll Progress Bar
+    // 6. Scroll Progress Bar
     const scrollProgress = document.getElementById('scroll-progress');
     if (scrollProgress) {
         window.addEventListener('scroll', () => {
@@ -161,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 8. Typing Animation
     const typingText = document.querySelector('.typing-text');
     if (typingText) {
-        const words = ['Software Developer', 'Aspiring QA Tester', 'UI/UX Enthusiast', 'Tech Explorer'];
+        const words = ['Software Developer', 'Mobile Developer', 'QA Tester'];
         let wordIndex = 0, charIndex = 0, isDeleting = false, typeSpeed = 100;
         function type() {
             const currentWord = words[wordIndex];
@@ -387,25 +369,7 @@ document.addEventListener('DOMContentLoaded', () => {
         learningBars.forEach(bar => learningObserver.observe(bar));
     }
 
-    // 15. 3D Card Tilt Effect
-    const tiltCards = document.querySelectorAll('.tilt-card');
-    if (!reducedMotion) tiltCards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const cx = rect.width / 2;
-            const cy = rect.height / 2;
-            const rotateY = ((x - cx) / cx) * 8;
-            const rotateX = -((y - cy) / cy) * 5;
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
-        });
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)';
-        });
-    });
-
-    // 16. Building-Now Widget Dismiss
+    // 15. Building-Now Widget Dismiss
     const buildingWidget = document.getElementById('building-now-widget');
     const buildingClose = document.getElementById('building-now-close');
     if (buildingWidget && buildingClose) {
@@ -525,73 +489,14 @@ document.addEventListener('DOMContentLoaded', () => {
         resumeModal.addEventListener('click', (e) => { if (e.target === resumeModal) closeResumeModal(); });
     }
 
-    // 21. Fun Facts Ticker
-    const funFacts = document.querySelectorAll('.fun-fact');
-    if (funFacts.length > 1) {
-        let currentFact = 0;
-        let factInterval;
-        const ticker = document.getElementById('fun-facts-ticker');
-
-        function rotateFact() {
-            const prev = funFacts[currentFact];
-            prev.classList.remove('active');
-            prev.classList.add('exit');
-            setTimeout(() => prev.classList.remove('exit'), 460);
-            currentFact = (currentFact + 1) % funFacts.length;
-            funFacts[currentFact].classList.add('active');
-        }
-
-        factInterval = setInterval(rotateFact, 4000);
-
-        if (ticker) {
-            ticker.addEventListener('mouseenter', () => clearInterval(factInterval));
-            ticker.addEventListener('mouseleave', () => { factInterval = setInterval(rotateFact, 4000); });
-        }
-    }
-
-    // 22. Time-Based Dynamic Greeting
+    // 21. Time-Based Greeting
     const greetingEl = document.getElementById('hero-greeting');
     if (greetingEl) {
         const hour = new Date().getHours();
-        let greetText;
-        if (hour >= 5 && hour < 12)       greetText = 'Good morning! ☀️';
-        else if (hour >= 12 && hour < 17)  greetText = 'Good afternoon! 🌤️';
-        else if (hour >= 17 && hour < 21)  greetText = 'Good evening! 🌅';
-        else                               greetText = 'Hello, night owl! 🌙';
-        greetingEl.textContent = greetText;
-    }
-
-    // 23. Magnetic Button Hover Effect
-    const magneticBtns = document.querySelectorAll('.magnetic-btn');
-    if (!reducedMotion && window.matchMedia('(pointer: fine)').matches) {
-        magneticBtns.forEach(btn => {
-            btn.addEventListener('mousemove', (e) => {
-                const rect = btn.getBoundingClientRect();
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
-                const dx = x * 0.25;
-                const dy = y * 0.25;
-                const maxD = 10;
-                const clampX = Math.max(-maxD, Math.min(maxD, dx));
-                const clampY = Math.max(-maxD, Math.min(maxD, dy));
-                btn.style.transform = `translate(${clampX}px, ${clampY}px)`;
-            });
-            btn.addEventListener('mouseleave', () => {
-                btn.style.transform = 'translate(0, 0)';
-            });
-        });
-    }
-
-    // 24. Scroll to Explore Indicator — fade out on scroll
-    const scrollIndicator = document.getElementById('scroll-indicator');
-    if (scrollIndicator) {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 200) {
-                scrollIndicator.classList.add('hidden');
-            } else {
-                scrollIndicator.classList.remove('hidden');
-            }
-        }, { passive: true });
+        if (hour >= 5 && hour < 12)       greetingEl.textContent = 'Good morning,';
+        else if (hour >= 12 && hour < 17) greetingEl.textContent = 'Good afternoon,';
+        else if (hour >= 17 && hour < 21) greetingEl.textContent = 'Good evening,';
+        else                              greetingEl.textContent = 'Hi,';
     }
 
 });
@@ -700,15 +605,10 @@ window.copyEmail = function () {
             modalVideo.classList.remove('is-hidden');
             modalVideo.src = embedUrl;
             imageWrapper.style.display = 'block';
-        } else if (d.image) {
-            modalVideo.classList.add('is-hidden');
-            modalVideo.src = '';
-            modalImg.classList.remove('is-hidden');
-            modalImg.src = d.image;
-            modalImg.alt = d.title || '';
-            imageWrapper.style.display = 'block';
         } else {
             imageWrapper.style.display = 'none';
+            modalImg.classList.add('is-hidden');
+            modalImg.src = '';
             modalVideo.src = '';
             modalVideo.classList.add('is-hidden');
         }
@@ -809,12 +709,12 @@ window.forceDownload = function (e, url, filename) {
     const legendEl = document.getElementById('radar-legend');
 
     const skills = [
-        { label: 'Mobile Dev',    value: 85, color: '#1e3a5f' },
-        { label: 'Web Dev',       value: 80, color: '#334155' },
-        { label: 'Backend / AI',  value: 65, color: '#475569' },
-        { label: 'UI/UX Design',  value: 70, color: '#64748b' },
-        { label: 'Version Ctrl',  value: 88, color: '#1e40af' },
-        { label: 'Problem Solving',value: 82, color: '#0f766e' },
+        { label: 'Mobile Dev',    value: 85, color: '#0a0a0a' },
+        { label: 'Web Dev',       value: 80, color: '#3a3a3a' },
+        { label: 'Backend / AI',  value: 65, color: '#6a6a6a' },
+        { label: 'UI/UX Design',  value: 70, color: '#9a9a9a' },
+        { label: 'Version Ctrl',  value: 88, color: '#7ec8e8' },
+        { label: 'Problem Solving',value: 82, color: '#0a0a0a' },
     ];
 
     const N = skills.length;
@@ -902,11 +802,11 @@ window.forceDownload = function (e, url, filename) {
 
         // Gradient fill
         const grad = ctx.createRadialGradient(CX, CY, 0, CX, CY, RADIUS);
-        grad.addColorStop(0, isDark ? 'rgba(147, 197, 253, 0.22)' : 'rgba(30, 58, 95, 0.18)');
-        grad.addColorStop(1, isDark ? 'rgba(148, 163, 184, 0.08)' : 'rgba(71, 85, 105, 0.06)');
+        grad.addColorStop(0, isDark ? 'rgba(126, 200, 232, 0.35)' : 'rgba(126, 200, 232, 0.3)');
+        grad.addColorStop(1, isDark ? 'rgba(126, 200, 232, 0.05)' : 'rgba(126, 200, 232, 0.06)');
         ctx.fillStyle = grad;
         ctx.fill();
-        ctx.strokeStyle = isDark ? '#93c5fd' : '#1e3a5f';
+        ctx.strokeStyle = isDark ? '#7ec8e8' : '#0a0a0a';
         ctx.lineWidth = 2.5;
         ctx.stroke();
 
@@ -940,8 +840,8 @@ window.forceDownload = function (e, url, filename) {
             const ly = CY + labelR * Math.sin(angle);
 
             ctx.font = hoveredIndex === i
-                ? 'bold 13px Inter, sans-serif'
-                : '12px Inter, sans-serif';
+                ? 'bold 13px "Space Grotesk", sans-serif'
+                : '12px "Space Grotesk", sans-serif';
             ctx.fillStyle = hoveredIndex === i ? skill.color : labelColor;
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
@@ -949,7 +849,7 @@ window.forceDownload = function (e, url, filename) {
         });
 
         // Percentage labels at level rings (right axis)
-        ctx.font = '10px Inter, sans-serif';
+        ctx.font = '10px "IBM Plex Mono", monospace';
         ctx.fillStyle = isDark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.25)';
         ctx.textAlign = 'left';
         for (let lvl = 1; lvl <= LEVELS; lvl++) {

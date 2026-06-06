@@ -1,0 +1,8 @@
+{
+  "name": "portfolio_haikal",
+  "private": true,
+  "scripts": {
+    "start": "npx serve . -l 8080",
+    "dev": "npm run start"
+  }
+}
