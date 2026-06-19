@@ -666,6 +666,59 @@ window.copyEmail = function () {
     });
 })();
 
+// 17b. Experience Gallery Lightbox
+(function initGalleryLightbox() {
+    const galleryModal = document.getElementById('gallery-modal');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxCaption = document.getElementById('lightbox-caption');
+    const galleryModalClose = document.getElementById('gallery-modal-close');
+    const galleryItems = document.querySelectorAll('.exp-gallery-item');
+
+    if (!galleryModal || !lightboxImg || !lightboxCaption) return;
+
+    function openLightbox(item) {
+        const img = item.querySelector('img');
+        const caption = item.getAttribute('data-caption');
+        if (img) {
+            lightboxImg.src = img.src;
+            lightboxImg.alt = img.alt || 'Fullscreen view';
+            lightboxCaption.textContent = caption || '';
+            galleryModal.removeAttribute('hidden');
+            requestAnimationFrame(() => {
+                galleryModal.classList.add('open');
+            });
+            document.body.style.overflow = 'hidden';
+        }
+    }
+
+    function closeLightbox() {
+        galleryModal.classList.remove('open');
+        document.body.style.overflow = '';
+        setTimeout(() => {
+            if (!galleryModal.classList.contains('open')) {
+                galleryModal.setAttribute('hidden', '');
+                lightboxImg.src = '';
+            }
+        }, 300);
+    }
+
+    galleryItems.forEach(item => {
+        item.addEventListener('click', () => openLightbox(item));
+    });
+
+    if (galleryModalClose) {
+        galleryModalClose.addEventListener('click', closeLightbox);
+    }
+
+    galleryModal.addEventListener('click', (e) => {
+        if (e.target === galleryModal) closeLightbox();
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && galleryModal.classList.contains('open')) closeLightbox();
+    });
+})();
+
 // 18. Force Download function
 window.forceDownload = function (e, url, filename) {
     e.preventDefault();
