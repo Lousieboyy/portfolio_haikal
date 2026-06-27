@@ -16,6 +16,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const reducedMotion = document.documentElement.getAttribute('data-reduced-motion') === 'true';
 
+    // 0.5. Navbar Scroll Class Toggle
+    const navbar = document.querySelector('nav');
+    if (navbar) {
+        const handleScroll = () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        };
+        window.addEventListener('scroll', handleScroll);
+        handleScroll();
+    }
+
     // 0. Preloader
     const preloader = document.getElementById('preloader');
     if (preloader) {
