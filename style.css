@@ -872,37 +872,24 @@ nav.scrolled .hamburger-line {
 
 .brutalist-photo-frame {
   position: relative;
-  width: 280px;
-  height: 350px;
-  background: #000000;
   border: 4px solid #ffffff;
-  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; /* Fluid organic blob shape */
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 
-              8px 8px 0 #ffffff; /* Depth shadow combined with white offset */
-  overflow: hidden;
-  transition: border-radius 0.6s ease-in-out, 
-              transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
-              box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  background: #000000;
+  box-shadow: 8px 8px 0 #ffffff;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
 }
 
 .brutalist-photo-frame:hover {
-  border-radius: 40% 60% 70% 30% / 50% 60% 40% 50%; /* Smooth shape morphing on hover */
-  transform: translate3d(-4px, -4px, 0) scale(1.02);
-  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.5), 
-              12px 12px 0 #ffffff;
+  transform: translate(-4px, -4px);
+  box-shadow: 12px 12px 0 #ffffff;
 }
 
 .brutalist-photo-frame img {
   display: block;
   width: 100%;
-  height: 100%;
+  max-width: 300px;
+  height: 380px;
   object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.brutalist-photo-frame:hover img {
-  transform: scale(1.05); /* Slight zoom on hover */
 }
 
 /* --- Stats Counter Section --- */
@@ -2208,22 +2195,15 @@ footer {
   }
 
   .brutalist-photo-frame {
-    width: 190px !important;
-    height: 230px !important;
-    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40% !important;
     border: 3px solid #ffffff !important; /* Thinner border for mobile */
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4), 
-                6px 6px 0 #ffffff !important; /* Scaled down shadow */
-  }
-
-  .brutalist-photo-frame:hover {
-    border-radius: 40% 60% 70% 30% / 50% 60% 40% 50% !important;
+    box-shadow: 6px 6px 0 #ffffff !important; /* Scaled down shadow */
+    border-radius: 0 !important; /* Reverted to rectangle */
   }
 
   .brutalist-photo-frame img {
-    width: 100% !important;
-    max-width: 100% !important;
-    height: 100% !important;
+    max-width: 190px !important; /* Reduced width for better ratio */
+    height: 230px !important;    /* Reduced height for better ratio */
+    display: block !important;
   }
 
   .hero-title {
