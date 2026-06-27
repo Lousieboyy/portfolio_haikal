@@ -2177,7 +2177,7 @@ footer {
   .hero-container {
     flex-direction: column-reverse;
     text-align: left;
-    gap: 3rem;
+    gap: 1.75rem; /* Reduced gap for compact styling */
     padding: 0 1.5rem;
   }
 
@@ -2194,14 +2194,19 @@ footer {
     justify-content: center;
   }
 
+  .brutalist-photo-frame {
+    border: 3px solid #ffffff !important; /* Thinner border for mobile */
+    box-shadow: 6px 6px 0 #ffffff !important; /* Scaled down shadow */
+  }
+
   .brutalist-photo-frame img {
-    max-width: 260px;
-    height: 320px;
+    max-width: 190px; /* Reduced width for better ratio */
+    height: 230px;    /* Reduced height for better ratio */
   }
 
   .hero-title {
-    font-size: clamp(1.8rem, 8vw, 2.6rem) !important;
-    line-height: 1.1;
+    font-size: clamp(1.8rem, 7.5vw, 2.3rem) !important; /* Slightly more compact size for mobile */
+    line-height: 1.15;
     white-space: normal !important; /* Wrap normally on mobile viewports */
   }
 
