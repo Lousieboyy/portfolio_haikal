@@ -4338,13 +4338,17 @@ footer {
 
 /* --- Spotlight Project Card --- */
 .project-card.project-card-spotlight {
-  grid-column: span 2;
+  grid-column: 1 / -1;
   border-color: var(--accent-hot);
   box-shadow: 5px 5px 0 var(--accent-hot);
 }
 
 .project-card.project-card-spotlight:hover {
   box-shadow: 7px 7px 0 var(--accent-hot);
+}
+
+.project-card-spotlight .project-info p {
+  max-width: 640px;
 }
 
 .spotlight-badge {
