@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lousieboyy.github.io/portfolio_haikal/sitemap.xml
