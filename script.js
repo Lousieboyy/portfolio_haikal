@@ -383,22 +383,6 @@ document.addEventListener('DOMContentLoaded', () => {
         learningBars.forEach(bar => learningObserver.observe(bar));
     }
 
-    // 15. Building-Now Widget Dismiss
-    const buildingWidget = document.getElementById('building-now-widget');
-    const buildingClose = document.getElementById('building-now-close');
-    if (buildingWidget && buildingClose) {
-        if (sessionStorage.getItem('buildingWidgetDismissed')) {
-            buildingWidget.style.display = 'none';
-        }
-        buildingClose.addEventListener('click', () => {
-            buildingWidget.classList.add('dismissed');
-            setTimeout(() => {
-                buildingWidget.style.display = 'none';
-            }, 420);
-            sessionStorage.setItem('buildingWidgetDismissed', '1');
-        });
-    }
-
     // 18. Staggered Card Reveal Animations
     const staggerSelectors = [
         '.service-card', '.project-card', '.testimonial-card',
@@ -650,6 +634,9 @@ window.copyEmail = function () {
         }
         if (d.repo) {
             actionsEl.innerHTML += `<a href="${d.repo}" target="_blank" rel="noopener noreferrer" class="btn ${d.caseStudy ? 'btn-secondary' : 'btn-primary'}"><i class="devicon-github-original colored devicon-link-inline"></i>View Repository</a>`;
+        }
+        if (d.repo2) {
+            actionsEl.innerHTML += `<a href="${d.repo2}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary"><i class="devicon-github-original colored devicon-link-inline"></i>${d.repo2Label || 'View Repository'}</a>`;
         }
         if (d.demo) {
             actionsEl.innerHTML += `<a href="${d.demo}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Watch demo</a>`;
