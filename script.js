@@ -599,6 +599,9 @@ window.copyEmail = function () {
         const total = sorted.reduce((s, [, v]) => s + v, 0);
         const barEl = document.getElementById('gh-lang-bar');
         const legendEl = document.getElementById('gh-lang-legend');
+        const statsRow = document.getElementById('github-stats-row');
+        if (statsRow) statsRow.classList.remove('is-loading');
+        if (legendEl) legendEl.innerHTML = '';
         if (barEl && legendEl && sorted.length > 0) {
             sorted.forEach(([lang, count]) => {
                 const pct = ((count / total) * 100).toFixed(1);
@@ -616,7 +619,10 @@ window.copyEmail = function () {
         }
     } catch (e) {
         const row = document.getElementById('github-stats-row');
-        if (row) row.style.display = 'none';
+        if (row) {
+            row.classList.remove('is-loading');
+            row.style.display = 'none';
+        }
     }
 })();
 

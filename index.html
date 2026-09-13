@@ -235,7 +235,7 @@
                 </div>
 
                 <!-- GitHub Live Stats -->
-                <div class="github-stats-row" id="github-stats-row">
+                <div class="github-stats-row is-loading" id="github-stats-row">
                     <div class="github-stats-header">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
                             fill="currentColor">
@@ -265,7 +265,11 @@
                         <div class="github-lang-section">
                             <span class="github-stat-label-sm">Top Languages</span>
                             <div class="github-lang-bar-container" id="gh-lang-bar"></div>
-                            <div class="github-lang-legend" id="gh-lang-legend"></div>
+                            <div class="github-lang-legend" id="gh-lang-legend">
+                                <span class="skeleton-chip"></span>
+                                <span class="skeleton-chip"></span>
+                                <span class="skeleton-chip"></span>
+                            </div>
                         </div>
                     </div>
                 </div>
