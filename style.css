@@ -85,6 +85,29 @@ body {
   position: relative;
 }
 
+/* --- Skip Link (Accessibility) --- */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  z-index: 10000;
+  background: var(--text-main);
+  color: var(--primary-bg);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  padding: 0.85rem 1.5rem;
+  border: var(--border-width) solid var(--border-color);
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
 /* --- Preloader --- */
 .preloader {
   position: fixed;
