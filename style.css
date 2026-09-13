@@ -4418,6 +4418,13 @@ footer {
   max-width: 640px;
 }
 
+.spotlight-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
 .spotlight-badge {
   display: inline-flex;
   align-items: center;
@@ -4431,7 +4438,21 @@ footer {
   background: var(--accent-brand-soft);
   border: 2px solid var(--border-color);
   padding: 0.35rem 0.75rem;
-  margin-bottom: 1rem;
+  width: fit-content;
+}
+
+.spotlight-tag {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  background: var(--card-bg);
+  border: 2px solid var(--border-color);
+  padding: 0.35rem 0.75rem;
   width: fit-content;
 }
 
