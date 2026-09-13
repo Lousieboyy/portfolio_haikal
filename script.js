@@ -686,7 +686,7 @@ window.copyEmail = function () {
             actionsEl.innerHTML += `<a href="${d.caseStudy}" class="btn btn-primary">View Case Study &rarr;</a>`;
         }
         if (d.repo) {
-            actionsEl.innerHTML += `<a href="${d.repo}" target="_blank" rel="noopener noreferrer" class="btn ${d.caseStudy ? 'btn-secondary' : 'btn-primary'}"><i class="devicon-github-original colored devicon-link-inline"></i>View Repository</a>`;
+            actionsEl.innerHTML += `<a href="${d.repo}" target="_blank" rel="noopener noreferrer" class="btn ${d.caseStudy ? 'btn-secondary' : 'btn-primary'}"><i class="devicon-github-original colored devicon-link-inline"></i>${d.repoLabel || 'View Repository'}</a>`;
         }
         if (d.repo2) {
             actionsEl.innerHTML += `<a href="${d.repo2}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary"><i class="devicon-github-original colored devicon-link-inline"></i>${d.repo2Label || 'View Repository'}</a>`;
