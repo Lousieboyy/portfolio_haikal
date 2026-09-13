@@ -207,6 +207,12 @@
             background: var(--pill-hover-bg, var(--accent-brand-soft));
         }
 
+        .cs-stack-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 0 2.5rem;
+        }
+
         .cs-stack-group {
             margin-bottom: 1.75rem;
         }
@@ -273,6 +279,7 @@
                     <li><a href="#overview">Overview</a></li>
                     <li><a href="#ecosystem">Ecosystem</a></li>
                     <li><a href="#portal">Portal</a></li>
+                    <li><a href="#security">Security</a></li>
                     <li><a href="#stack">Tech Stack</a></li>
                     <li class="mobile-only-talk"><a href="../index.html#projects" class="mobile-talk-btn">All Projects</a></li>
                 </ul>
@@ -324,11 +331,11 @@
                 </p>
                 <div class="cs-meta-row">
                     <span class="status-badge ongoing">Ongoing</span>
+                    <span class="pill">Flutter</span>
                     <span class="pill">React</span>
-                    <span class="pill">Vite</span>
-                    <span class="pill">Tailwind CSS</span>
-                    <span class="pill">Leaflet</span>
-                    <span class="pill">Recharts</span>
+                    <span class="pill">FastAPI</span>
+                    <span class="pill">PostgreSQL</span>
+                    <span class="pill">TensorFlow</span>
                 </div>
                 <div class="cs-actions">
                     <a href="https://github.com/Lousieboyy/decision_support_system_web.git" target="_blank"
@@ -354,42 +361,46 @@
                 <div class="cs-two-col">
                     <div>
                         <p class="cs-section-lede" style="margin-bottom: 1rem;">
-                            Citizens can already report potholes, broken streetlights, and vandalism through a
-                            mobile app. But a flood of individual reports is only useful to a city agency if
-                            someone can see the whole picture: which reports are urgent, which crew should be
-                            dispatched, and whether repairs made last month are actually holding up.
+                            In Malaysia, infrastructure complaints mostly travel through WhatsApp hotlines and
+                            social media tags &mdash; unstructured, unverified, and invisible to any system that
+                            could learn from them. A pothole photo posted to Facebook has no coordinates, no
+                            category, no priority, and no way to tell if it's a duplicate of five other reports
+                            for the same hole.
                         </p>
                         <p class="cs-section-lede">
-                            The Decision Support System (DSS) is that missing layer &mdash; a desktop web portal
-                            built for administrators, not citizens, that turns a stream of individual reports into
-                            dispatch decisions and city-wide insight.
+                            This Final Year Project, aligned with the Malaysia Smart City Framework (MSCF),
+                            replaces that fragmentation with a structured pipeline: a mobile app that captures
+                            every complaint with a verified category, photo, and GPS location, and a web
+                            dashboard that turns the resulting stream into dispatch decisions and city-wide
+                            insight for local authorities like MBMB.
                         </p>
                     </div>
                     <div>
                         <p class="cs-section-lede" style="margin-bottom: 1rem;">
-                            <strong style="color: var(--text-main);">My role:</strong> designed and built the
-                            portal's frontend end-to-end &mdash; the analytics dashboards, the Leaflet-based hotspot
-                            map, the dispatch and audit workflow, and the report/team/user management screens
-                            that sit on top of the same reporting pipeline the citizen app feeds into.
+                            <strong style="color: var(--text-main);">My role:</strong> I designed and built the
+                            full three-tier system solo &mdash; the Flutter citizen and worker apps, the React
+                            admin dashboard, the FastAPI backend, and the MobileNetV2 image-classification model
+                            that verifies each report's photo against its category before it ever reaches a
+                            human reviewer.
                         </p>
                     </div>
                 </div>
                 <div class="cs-fact-strip">
                     <div class="cs-fact">
-                        <span class="cs-fact-num">6</span>
-                        <span class="cs-fact-label">Portal modules</span>
+                        <span class="cs-fact-num">99.15%</span>
+                        <span class="cs-fact-label">AI model accuracy (85% target)</span>
                     </div>
                     <div class="cs-fact">
-                        <span class="cs-fact-num">4</span>
-                        <span class="cs-fact-label">Analytics tabs</span>
+                        <span class="cs-fact-num">0.31s</span>
+                        <span class="cs-fact-label">Inference time (3s target)</span>
                     </div>
                     <div class="cs-fact">
-                        <span class="cs-fact-num">5</span>
-                        <span class="cs-fact-label">Workflow stages tracked</span>
+                        <span class="cs-fact-num">97.3%</span>
+                        <span class="cs-fact-label">Test pass rate, 74 scenarios</span>
                     </div>
                     <div class="cs-fact">
-                        <span class="cs-fact-num">1</span>
-                        <span class="cs-fact-label">Shared AI classification pipeline</span>
+                        <span class="cs-fact-num">50</span>
+                        <span class="cs-fact-label">Backend API endpoints</span>
                     </div>
                 </div>
             </div>
@@ -399,10 +410,9 @@
             <div class="container">
                 <h2 class="cs-section-title">How a Report Becomes Data</h2>
                 <p class="cs-section-lede">
-                    The DSS portal doesn't exist in isolation &mdash; it sits downstream of the Smart City citizen
-                    app and a companion worker/dispatch app. These screens are from that companion mobile
-                    experience, included here to show where the data the admin portal analyzes actually comes
-                    from, end to end.
+                    The admin portal is only half the system &mdash; these screens are the mobile side: the
+                    citizen reporting app and the field-worker dispatch app. Together they show the full
+                    lifecycle of a complaint, from the moment it's filed to the moment a crew closes it out.
                 </p>
                 <div class="cs-gallery-grid">
                     <div class="cs-gallery-item">
@@ -532,50 +542,186 @@
             </div>
         </section>
 
+        <section class="cs-section" id="security">
+            <div class="container">
+                <h2 class="cs-section-title">Security &amp; Data Integrity</h2>
+                <p class="cs-section-lede">
+                    A report here can trigger a real crew being dispatched with real municipal resources, so
+                    the system was built with a set of trust safeguards that go beyond a typical student
+                    prototype &mdash; the kind of thing that determines whether a reporting platform like this
+                    could actually be trusted in production.
+                </p>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">🔐</div>
+                        <h3>Password &amp; Session Security</h3>
+                        <p>User passwords are never stored in plain text &mdash; they're hashed with bcrypt via
+                            passlib before persistence. Sessions are authenticated with signed tokens (JWT via
+                            python-jose) rather than server-side session state.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🛡️</div>
+                        <h3>Role-Scoped Access Control</h3>
+                        <p>Admin dashboard access is role-scoped: what a dispatcher, agency admin, or field
+                            worker can see and act on is restricted by their assigned role, not just by being
+                            logged in.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🕵️</div>
+                        <h3>Image Provenance Forensics</h3>
+                        <p>Since priority scoring and crew dispatch depend on the submitted photo being real,
+                            a dedicated verification step inspects image metadata and screens for signs of
+                            synthetic or AI-generated imagery before a report reaches the queue.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">📍</div>
+                        <h3>Proximity Duplicate Detection</h3>
+                        <p>A new submission within 50 metres of an existing open complaint in the same
+                            category is flagged as a probable duplicate and linked to the original, instead of
+                            inflating the queue and distorting the analytics.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🔑</div>
+                        <h3>Secrets Management</h3>
+                        <p>No credentials live in source code. The database connection string, token-signing
+                            secret, and dataset-repository credentials are all supplied via environment
+                            variables &mdash; documented in a committed <code>.env.example</code> without ever
+                            exposing real values.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🪪</div>
+                        <h3>Verified Reporting Accountability</h3>
+                        <p>Citizen registration captures a Malaysian IC number to tie every report to a
+                            verifiable identity and discourage abuse &mdash; used only for accountability, never
+                            displayed on any screen.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section class="cs-section" id="stack">
             <div class="container">
                 <h2 class="cs-section-title">Tech Stack</h2>
-                <div class="cs-two-col">
-                    <div>
-                        <div class="cs-stack-group">
-                            <h4>Frontend</h4>
-                            <div class="cs-stack-pills">
-                                <span class="pill">React 19</span>
-                                <span class="pill">Vite</span>
-                                <span class="pill">Tailwind CSS v4</span>
-                                <span class="pill">React Router</span>
-                                <span class="pill">vite-plugin-pwa</span>
-                            </div>
-                        </div>
-                        <div class="cs-stack-group">
-                            <h4>Mapping &amp; Geospatial</h4>
-                            <div class="cs-stack-pills">
-                                <span class="pill">Leaflet</span>
-                                <span class="pill">react-leaflet</span>
-                                <span class="pill">leaflet.heat</span>
-                                <span class="pill">react-leaflet-cluster</span>
-                                <span class="pill">Turf.js</span>
-                                <span class="pill">d3-delaunay</span>
-                            </div>
+                <div class="cs-stack-grid">
+                    <div class="cs-stack-group">
+                        <h4>Mobile</h4>
+                        <div class="cs-stack-pills">
+                            <span class="pill">Flutter 3.38</span>
+                            <span class="pill">Dart 3.10</span>
                         </div>
                     </div>
+                    <div class="cs-stack-group">
+                        <h4>Web Frontend</h4>
+                        <div class="cs-stack-pills">
+                            <span class="pill">React 19</span>
+                            <span class="pill">Vite</span>
+                            <span class="pill">Tailwind CSS v4</span>
+                            <span class="pill">React Router</span>
+                            <span class="pill">vite-plugin-pwa</span>
+                        </div>
+                    </div>
+                    <div class="cs-stack-group">
+                        <h4>Backend</h4>
+                        <div class="cs-stack-pills">
+                            <span class="pill">FastAPI</span>
+                            <span class="pill">Uvicorn</span>
+                            <span class="pill">SQLAlchemy</span>
+                            <span class="pill">Pydantic</span>
+                        </div>
+                    </div>
+                    <div class="cs-stack-group">
+                        <h4>Security</h4>
+                        <div class="cs-stack-pills">
+                            <span class="pill">bcrypt</span>
+                            <span class="pill">passlib</span>
+                            <span class="pill">python-jose (JWT)</span>
+                        </div>
+                    </div>
+                    <div class="cs-stack-group">
+                        <h4>Database</h4>
+                        <div class="cs-stack-pills">
+                            <span class="pill">Neon Serverless PostgreSQL</span>
+                        </div>
+                    </div>
+                    <div class="cs-stack-group">
+                        <h4>AI / Machine Learning</h4>
+                        <div class="cs-stack-pills">
+                            <span class="pill">TensorFlow</span>
+                            <span class="pill">Keras</span>
+                            <span class="pill">MobileNetV2</span>
+                            <span class="pill">TensorFlow Lite</span>
+                            <span class="pill">NumPy</span>
+                            <span class="pill">Pillow</span>
+                        </div>
+                    </div>
+                    <div class="cs-stack-group">
+                        <h4>Mapping &amp; Geospatial</h4>
+                        <div class="cs-stack-pills">
+                            <span class="pill">Leaflet</span>
+                            <span class="pill">react-leaflet</span>
+                            <span class="pill">leaflet.heat</span>
+                            <span class="pill">react-leaflet-cluster</span>
+                            <span class="pill">Turf.js</span>
+                            <span class="pill">d3-delaunay</span>
+                        </div>
+                    </div>
+                    <div class="cs-stack-group">
+                        <h4>Data &amp; Reporting</h4>
+                        <div class="cs-stack-pills">
+                            <span class="pill">Recharts</span>
+                            <span class="pill">jsPDF</span>
+                            <span class="pill">jspdf-autotable</span>
+                            <span class="pill">html2canvas</span>
+                        </div>
+                    </div>
+                    <div class="cs-stack-group">
+                        <h4>Testing &amp; Tooling</h4>
+                        <div class="cs-stack-pills">
+                            <span class="pill">Cypress</span>
+                            <span class="pill">ESLint</span>
+                            <span class="pill">GitHub</span>
+                        </div>
+                    </div>
+                    <div class="cs-stack-group">
+                        <h4>Deployment</h4>
+                        <div class="cs-stack-pills">
+                            <span class="pill">Vercel</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cs-section" id="roadmap">
+            <div class="container">
+                <h2 class="cs-section-title">Challenges &amp; What's Next</h2>
+                <div class="cs-two-col">
                     <div>
-                        <div class="cs-stack-group">
-                            <h4>Data &amp; Reporting</h4>
-                            <div class="cs-stack-pills">
-                                <span class="pill">Recharts</span>
-                                <span class="pill">jsPDF</span>
-                                <span class="pill">jspdf-autotable</span>
-                                <span class="pill">html2canvas</span>
-                            </div>
-                        </div>
-                        <div class="cs-stack-group">
-                            <h4>Testing &amp; Tooling</h4>
-                            <div class="cs-stack-pills">
-                                <span class="pill">Cypress</span>
-                                <span class="pill">ESLint</span>
-                            </div>
-                        </div>
+                        <h4 style="font-family: var(--font-mono); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 0.75rem;">Known limitations</h4>
+                        <p class="cs-section-lede" style="margin-bottom: 1rem;">
+                            The backend runs as serverless functions, which capped the AI inference bundle size
+                            and forced the model to be converted to TensorFlow Lite; the same platform adds a
+                            cold-start delay after an idle period, even though steady-state inference lands at
+                            0.31 seconds.
+                        </p>
+                        <p class="cs-section-lede">
+                            Priority scoring today is single-factor (category weight only) &mdash; it doesn't yet
+                            account for corroborating reports, complaint age, or proximity to schools and
+                            hospitals. And the classification model was trained mostly on public imagery rather
+                            than Malaysian infrastructure photos, which the self-growing dataset pipeline is
+                            designed to correct over time as real submissions accumulate.
+                        </p>
+                    </div>
+                    <div>
+                        <h4 style="font-family: var(--font-mono); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 0.75rem;">Proposed next steps</h4>
+                        <ul style="color: var(--text-muted); padding-left: 1.2rem; line-height: 1.9;">
+                            <li>Composite priority scoring (corroboration count, complaint age, proximity to sensitive sites)</li>
+                            <li>Offline submission with deferred sync for poor-connectivity areas</li>
+                            <li>Expand image classification beyond the current 11 classes</li>
+                            <li>iOS build of the citizen app (Flutter already supports it)</li>
+                            <li>Integration with existing local-authority work order systems</li>
+                            <li>A field trial with an actual local authority</li>
+                        </ul>
                     </div>
                 </div>
             </div>
