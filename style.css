@@ -14,15 +14,15 @@
   --accent-brand-soft: #d4effa;
   --border-color: #0a0a0a;
   --border-width: 3px;
-  --card-bg: #fffef8;
-  --glass-bg: #fffef8;
+  --card-bg: #ffffff;
+  --glass-bg: #ffffff;
   --glass-border: #0a0a0a;
   --glass-blur: 0px;
-  --pill-bg: #fffef8;
+  --pill-bg: #ffffff;
   --pill-border: #0a0a0a;
   --pill-hover-bg: #d4effa;
   --pill-hover-shadow: 4px 4px 0 #0a0a0a;
-  --nav-bg: #fffef8;
+  --nav-bg: #ffffff;
   --shadow-sm: 3px 3px 0 #0a0a0a;
   --shadow-md: 5px 5px 0 #0a0a0a;
   --shadow-glass: 3px 3px 0 #0a0a0a;
@@ -1400,6 +1400,8 @@ nav.scrolled .hamburger-line {
   align-items: center;
   transition: gap 0.2s ease;
   gap: 0;
+  margin-top: auto;
+  padding-top: 1.5rem;
 }
 
 .link-btn:hover {
