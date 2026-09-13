@@ -3872,7 +3872,6 @@ body {
 }
 
 /* Kill glass / fluff */
-.particle-canvas,
 .glass-shine,
 .blob-shape {
   display: none !important;

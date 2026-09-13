@@ -294,16 +294,30 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 13. Particle Background
+    // 13. Particle Background (interactive: reacts to cursor)
     const canvas = document.getElementById('particle-canvas');
     if (canvas && !reducedMotion) {
         const ctx = canvas.getContext('2d');
+        const heroSection = document.getElementById('home');
         let particles = [];
         let animationId;
+        const mouse = { x: null, y: null, radius: 130 };
+
+        function updateMouseFromEvent(clientX, clientY) {
+            const rect = canvas.getBoundingClientRect();
+            mouse.x = clientX - rect.left;
+            mouse.y = clientY - rect.top;
+        }
+
+        heroSection.addEventListener('mousemove', (e) => updateMouseFromEvent(e.clientX, e.clientY));
+        heroSection.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
+        heroSection.addEventListener('touchmove', (e) => {
+            if (e.touches[0]) updateMouseFromEvent(e.touches[0].clientX, e.touches[0].clientY);
+        }, { passive: true });
+        heroSection.addEventListener('touchend', () => { mouse.x = null; mouse.y = null; });
 
         function initParticles() {
             if (animationId) cancelAnimationFrame(animationId);
-            const heroSection = document.getElementById('home');
             canvas.width = heroSection.offsetWidth;
             canvas.height = heroSection.offsetHeight;
             const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
@@ -326,6 +340,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 particles.forEach(p => {
                     p.x += p.speedX;
                     p.y += p.speedY;
+
+                    if (mouse.x !== null) {
+                        const dx = p.x - mouse.x;
+                        const dy = p.y - mouse.y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < mouse.radius && dist > 0) {
+                            const force = (1 - dist / mouse.radius) * 1.6;
+                            p.x += (dx / dist) * force;
+                            p.y += (dy / dist) * force;
+                        }
+                    }
+
                     if (p.x < 0) p.x = canvas.width;
                     if (p.x > canvas.width) p.x = 0;
                     if (p.y < 0) p.y = canvas.height;
@@ -350,6 +376,27 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     }
                 }
+
+                if (mouse.x !== null) {
+                    particles.forEach(p => {
+                        const dx = p.x - mouse.x;
+                        const dy = p.y - mouse.y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 160) {
+                            ctx.beginPath();
+                            ctx.moveTo(p.x, p.y);
+                            ctx.lineTo(mouse.x, mouse.y);
+                            ctx.strokeStyle = `rgba(126, 200, 232, ${0.5 * (1 - dist / 160)})`;
+                            ctx.lineWidth = 0.7;
+                            ctx.stroke();
+                        }
+                    });
+                    ctx.beginPath();
+                    ctx.arc(mouse.x, mouse.y, 3, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(126, 200, 232, 0.9)';
+                    ctx.fill();
+                }
+
                 animationId = requestAnimationFrame(animate);
             }
             animate();
