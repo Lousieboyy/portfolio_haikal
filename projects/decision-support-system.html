@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart City Decision Support System | Case Study — Mohamad Haikal</title>
+    <meta name="description"
+        content="Case study: a React/Vite/Tailwind admin web portal that lets city agencies triage citizen infrastructure reports, dispatch crews, and visualize hotspots on a live map.">
+    <meta name="author" content="Mohamad Haikal">
+    <link rel="canonical" href="https://lousieboyy.github.io/portfolio_haikal/projects/decision-support-system.html">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Smart City Decision Support System | Case Study">
+    <meta property="og:description"
+        content="An admin web portal for city agencies to triage citizen reports, dispatch crews, and visualize incident hotspots in real time.">
+    <meta property="og:url" content="https://lousieboyy.github.io/portfolio_haikal/projects/decision-support-system.html">
+    <meta property="og:image" content="https://lousieboyy.github.io/portfolio_haikal/assets/projects/decision_support.png">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_MY">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Geist:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        /* --- Case Study page-specific styles --- */
+        .cs-main {
+            padding-top: 6.5rem;
+        }
+
+        .cs-hero {
+            padding: 2rem 0 4rem;
+        }
+
+        .cs-back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+        }
+
+        .cs-back-link:hover {
+            color: var(--text-main);
+        }
+
+        .cs-eyebrow {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+
+        .cs-title {
+            font-family: var(--font-heading);
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            font-size: clamp(2rem, 5.5vw, 3.4rem);
+            line-height: 1.05;
+            margin-bottom: 1.25rem;
+            max-width: 18ch;
+        }
+
+        .cs-subtitle {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            max-width: 62ch;
+            margin-bottom: 1.5rem;
+        }
+
+        .cs-meta-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .cs-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .cs-hero-frame {
+            border: var(--border-width) solid var(--border-color);
+            box-shadow: var(--shadow-md);
+            background: var(--card-bg);
+            overflow: hidden;
+        }
+
+        .cs-hero-frame img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .cs-section {
+            padding: 3.5rem 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .cs-section-title {
+            font-family: var(--font-heading);
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            font-size: clamp(1.5rem, 3.5vw, 2.1rem);
+            margin-bottom: 1rem;
+        }
+
+        .cs-section-lede {
+            color: var(--text-muted);
+            max-width: 72ch;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+
+        .cs-two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+        }
+
+        .cs-fact-strip {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .cs-fact {
+            border: 2px solid var(--border-color);
+            padding: 1.25rem 1.5rem;
+            background: var(--card-bg);
+        }
+
+        .cs-fact-num {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            display: block;
+            line-height: 1;
+            margin-bottom: 0.4rem;
+        }
+
+        .cs-fact-label {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+        }
+
+        .cs-gallery-caption {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.6rem;
+            line-height: 1.45;
+        }
+
+        .cs-gallery-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cs-gallery-item .exp-gallery-item {
+            aspect-ratio: 9 / 12;
+        }
+
+        .cs-gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+            gap: 1.75rem 1.25rem;
+        }
+
+        .cs-tag {
+            display: inline-block;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.2rem 0.55rem;
+            border: 1px solid var(--border-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .cs-tag.citizen {
+            background: var(--accent-brand-soft);
+        }
+
+        .cs-tag.worker {
+            background: var(--pill-hover-bg, var(--accent-brand-soft));
+        }
+
+        .cs-stack-group {
+            margin-bottom: 1.75rem;
+        }
+
+        .cs-stack-group h4 {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+
+        .cs-stack-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .cs-cta {
+            text-align: center;
+            padding: 4rem 0 5rem;
+        }
+
+        .cs-cta .cs-actions {
+            justify-content: center;
+            margin-bottom: 0;
+        }
+
+        .cs-footer-min {
+            border-top: var(--border-width) solid var(--border-color);
+            padding: 2rem 0;
+            text-align: center;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .cs-footer-min a {
+            color: var(--text-main);
+        }
+
+        @media (max-width: 760px) {
+            .cs-two-col {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress-container" aria-hidden="true">
+        <div class="scroll-progress-bar" id="scroll-progress" role="progressbar" aria-valuenow="0" aria-valuemin="0"
+            aria-valuemax="100"></div>
+    </div>
+
+    <nav id="navbar">
+        <div class="nav-content">
+            <a href="../index.html#home" class="logo">MOHAMAD HAIKAL</a>
+            <div class="nav-actions">
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#ecosystem">Ecosystem</a></li>
+                    <li><a href="#portal">Portal</a></li>
+                    <li><a href="#stack">Tech Stack</a></li>
+                    <li class="mobile-only-talk"><a href="../index.html#projects" class="mobile-talk-btn">All Projects</a></li>
+                </ul>
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle Dark Mode">
+                    <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+                <a href="../index.html#projects" class="header-talk-btn">All Projects</a>
+                <button id="hamburger" class="hamburger" aria-label="Toggle Navigation Menu" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+    <div class="mobile-nav-overlay" id="mobile-overlay"></div>
+
+    <main class="cs-main">
+        <section class="cs-hero">
+            <div class="container">
+                <a href="../index.html#projects" class="cs-back-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                    Back to all projects
+                </a>
+                <p class="cs-eyebrow">Case Study &middot; Admin Web Portal</p>
+                <h1 class="cs-title">Smart City Decision Support System</h1>
+                <p class="cs-subtitle">
+                    A companion admin dashboard for the Smart City citizen-reporting app. City agencies use it to
+                    triage AI-classified infrastructure reports, dispatch crews, track resolution audit trails, and
+                    spot problem hotspots before they escalate — across departments like MBMB (Majlis Bandaraya
+                    Melaka Bersejarah).
+                </p>
+                <div class="cs-meta-row">
+                    <span class="status-badge ongoing">Ongoing</span>
+                    <span class="pill">React</span>
+                    <span class="pill">Vite</span>
+                    <span class="pill">Tailwind CSS</span>
+                    <span class="pill">Leaflet</span>
+                    <span class="pill">Recharts</span>
+                </div>
+                <div class="cs-actions">
+                    <a href="https://github.com/Lousieboyy/decision_support_system_web.git" target="_blank"
+                        rel="noopener noreferrer" class="btn btn-primary">
+                        <i class="devicon-github-original colored devicon-link-inline"></i>View Repository
+                    </a>
+                    <a href="#ecosystem" class="btn btn-secondary">See it in action &darr;</a>
+                </div>
+                <div class="cs-hero-frame">
+                    <img src="../assets/projects/dss-case-study/dss-portal-overview.png"
+                        alt="DSS Portal Infrastructure Analytics screen showing active reports, average time to fix, and department breakdown">
+                </div>
+            </div>
+        </section>
+
+        <section class="cs-section" id="overview">
+            <div class="container">
+                <h2 class="cs-section-title">The Problem</h2>
+                <div class="cs-two-col">
+                    <div>
+                        <p class="cs-section-lede" style="margin-bottom: 1rem;">
+                            Citizens can already report potholes, broken streetlights, and vandalism through a
+                            mobile app. But a flood of individual reports is only useful to a city agency if
+                            someone can see the whole picture: which reports are urgent, which crew should be
+                            dispatched, and whether repairs made last month are actually holding up.
+                        </p>
+                        <p class="cs-section-lede">
+                            The Decision Support System (DSS) is that missing layer &mdash; a desktop web portal
+                            built for administrators, not citizens, that turns a stream of individual reports into
+                            dispatch decisions and city-wide insight.
+                        </p>
+                    </div>
+                    <div>
+                        <p class="cs-section-lede" style="margin-bottom: 1rem;">
+                            <strong style="color: var(--text-main);">My role:</strong> designed and built the
+                            portal's frontend end-to-end &mdash; the analytics dashboards, the Leaflet-based hotspot
+                            map, the dispatch and audit workflow, and the report/team/user management screens
+                            that sit on top of the same reporting pipeline the citizen app feeds into.
+                        </p>
+                    </div>
+                </div>
+                <div class="cs-fact-strip">
+                    <div class="cs-fact">
+                        <span class="cs-fact-num">6</span>
+                        <span class="cs-fact-label">Portal modules</span>
+                    </div>
+                    <div class="cs-fact">
+                        <span class="cs-fact-num">4</span>
+                        <span class="cs-fact-label">Analytics tabs</span>
+                    </div>
+                    <div class="cs-fact">
+                        <span class="cs-fact-num">5</span>
+                        <span class="cs-fact-label">Workflow stages tracked</span>
+                    </div>
+                    <div class="cs-fact">
+                        <span class="cs-fact-num">1</span>
+                        <span class="cs-fact-label">Shared AI classification pipeline</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cs-section" id="ecosystem">
+            <div class="container">
+                <h2 class="cs-section-title">How a Report Becomes Data</h2>
+                <p class="cs-section-lede">
+                    The DSS portal doesn't exist in isolation &mdash; it sits downstream of the Smart City citizen
+                    app and a companion worker/dispatch app. These screens are from that companion mobile
+                    experience, included here to show where the data the admin portal analyzes actually comes
+                    from, end to end.
+                </p>
+                <div class="cs-gallery-grid">
+                    <div class="cs-gallery-item">
+                        <span class="cs-tag citizen">Citizen App</span>
+                        <div class="exp-gallery-item" data-caption="Citizen home screen: total, pending, and resolved report counts, plus a live breakdown of issue categories city-wide.">
+                            <img src="../assets/projects/dss-case-study/citizen-home.jpg" alt="Citizen app home screen with report stats and category breakdown">
+                            <div class="gallery-overlay"><span>View</span></div>
+                        </div>
+                        <p class="cs-gallery-caption">Citizens see live totals and a breakdown of issue categories.</p>
+                    </div>
+                    <div class="cs-gallery-item">
+                        <span class="cs-tag citizen">Citizen App</span>
+                        <div class="exp-gallery-item" data-caption="Filing a report: on-device AI computer vision scores the defect — here a 99.72% pothole match — and pre-selects the category before the citizen submits.">
+                            <img src="../assets/projects/dss-case-study/citizen-ai-scan.jpg" alt="Report filing screen with AI computer vision scan detecting a pothole at 99.72% confidence">
+                            <div class="gallery-overlay"><span>View</span></div>
+                        </div>
+                        <p class="cs-gallery-caption">AI computer vision pre-classifies the defect at submission time.</p>
+                    </div>
+                    <div class="cs-gallery-item">
+                        <span class="cs-tag citizen">Citizen App</span>
+                        <div class="exp-gallery-item" data-caption="Citizens track every report through Pending, In Review, In Process, In Maintenance, Resolved, or Rejected.">
+                            <img src="../assets/projects/dss-case-study/citizen-tracking.jpg" alt="My Reports screen with status filter tabs">
+                            <div class="gallery-overlay"><span>View</span></div>
+                        </div>
+                        <p class="cs-gallery-caption">Every report is tracked through a defined status pipeline.</p>
+                    </div>
+                    <div class="cs-gallery-item">
+                        <span class="cs-tag citizen">Citizen App</span>
+                        <div class="exp-gallery-item" data-caption="A report pinned on the map with a five-step progress tracker: Submitted, Reviewed, Assigned, Maintenance, Resolved.">
+                            <img src="../assets/projects/dss-case-study/citizen-map-progress.jpg" alt="Map view with report detail card showing a five-step progress tracker">
+                            <div class="gallery-overlay"><span>View</span></div>
+                        </div>
+                        <p class="cs-gallery-caption">Reports plot on a map with the same five-stage pipeline the DSS Dispatch &amp; Audit tab tracks.</p>
+                    </div>
+                    <div class="cs-gallery-item">
+                        <span class="cs-tag citizen">Citizen App</span>
+                        <div class="exp-gallery-item" data-caption="Zoomed out, report clusters reveal city-wide hotspots — the same signal the DSS portal's Predictive Hotspots tab analyzes.">
+                            <img src="../assets/projects/dss-case-study/citizen-hotspot-map.jpg" alt="City-wide map with clustered report markers across Melaka">
+                            <div class="gallery-overlay"><span>View</span></div>
+                        </div>
+                        <p class="cs-gallery-caption">Clustered reports across the city — raw input for hotspot analysis.</p>
+                    </div>
+                    <div class="cs-gallery-item">
+                        <span class="cs-tag worker">Worker Portal</span>
+                        <div class="exp-gallery-item" data-caption="Once triaged, tasks appear in the Worker Portal — the field-dispatch side of the same system.">
+                            <img src="../assets/projects/dss-case-study/worker-portal-home.jpg" alt="Worker portal home screen with assigned task queue">
+                            <div class="gallery-overlay"><span>View</span></div>
+                        </div>
+                        <p class="cs-gallery-caption">Triaged reports become a task queue for field workers.</p>
+                    </div>
+                    <div class="cs-gallery-item">
+                        <span class="cs-tag worker">Worker Portal</span>
+                        <div class="exp-gallery-item" data-caption="A dispatch thread timestamps every handoff, e.g. 'Report verified. Forwarded to MBMB.' — the raw log behind the DSS Dispatch & Audit tab.">
+                            <img src="../assets/projects/dss-case-study/worker-dispatch-thread.jpg" alt="Worker report list showing a dispatch audit thread">
+                            <div class="gallery-overlay"><span>View</span></div>
+                        </div>
+                        <p class="cs-gallery-caption">A dispatch audit thread logs each verification and handoff.</p>
+                    </div>
+                    <div class="cs-gallery-item">
+                        <span class="cs-tag worker">Worker Portal</span>
+                        <div class="exp-gallery-item" data-caption="Workers get turn-by-turn routing and distance/time estimates straight to the task location.">
+                            <img src="../assets/projects/dss-case-study/worker-report-route.jpg" alt="Report detail screen with driving directions to the task location">
+                            <div class="gallery-overlay"><span>View</span></div>
+                        </div>
+                        <p class="cs-gallery-caption">Field workers get routing directly to the task location.</p>
+                    </div>
+                    <div class="cs-gallery-item">
+                        <span class="cs-tag worker">Worker Portal</span>
+                        <div class="exp-gallery-item" data-caption="A report isn't marked Resolved until a worker submits photo proof of completed maintenance work.">
+                            <img src="../assets/projects/dss-case-study/worker-completion-proof.jpg" alt="Completion proof submission screen requiring a photo and notes">
+                            <div class="gallery-overlay"><span>View</span></div>
+                        </div>
+                        <p class="cs-gallery-caption">Resolution requires photo proof before a report closes out.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cs-section" id="portal">
+            <div class="container">
+                <h2 class="cs-section-title">Inside the Admin Portal</h2>
+                <p class="cs-section-lede">
+                    Everything above feeds into six modules in the DSS sidebar: Insights, Map View, Reports, Teams,
+                    Users, and AI Dataset. The screenshot at the top of this page is the Insights &rarr; Overview
+                    &amp; Trends tab, live against real seeded report data.
+                </p>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">📊</div>
+                        <h3>Insights &amp; Analytics</h3>
+                        <p>Four tabs — Overview &amp; Trends, Predictive Hotspots, City Health, and Dispatch &amp;
+                            Audit — cover active-report counts, average time-to-fix against a 3-day target, and a
+                            per-department breakdown, with a one-click Executive Brief PDF export.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🗺️</div>
+                        <h3>Interactive Map View</h3>
+                        <p>A Leaflet map with clustered markers and a heatmap layer (leaflet.heat) for spotting
+                            recurring problem areas, plus Turf.js-powered geospatial checks for department
+                            boundary intersections.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🧭</div>
+                        <h3>What-If Simulator</h3>
+                        <p>Lets an administrator model the effect of reassigning crews or shifting priority
+                            thresholds before committing to a dispatch decision.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">📋</div>
+                        <h3>Reports &amp; Dispatch</h3>
+                        <p>Full report explorer with detail modals, cluster-based dispatch actions for grouping
+                            nearby incidents into one crew visit, and team-notification triggers.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">👷</div>
+                        <h3>Teams &amp; Users</h3>
+                        <p>Assign field workers to departments, manage administrator accounts, and review a
+                            repair-reliability check flagging repeat failures at the same location.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🤖</div>
+                        <h3>AI Dataset</h3>
+                        <p>A dedicated view into the image dataset and confidence scores behind the AI
+                            classification pipeline shared with the citizen-reporting app.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cs-section" id="stack">
+            <div class="container">
+                <h2 class="cs-section-title">Tech Stack</h2>
+                <div class="cs-two-col">
+                    <div>
+                        <div class="cs-stack-group">
+                            <h4>Frontend</h4>
+                            <div class="cs-stack-pills">
+                                <span class="pill">React 19</span>
+                                <span class="pill">Vite</span>
+                                <span class="pill">Tailwind CSS v4</span>
+                                <span class="pill">React Router</span>
+                                <span class="pill">vite-plugin-pwa</span>
+                            </div>
+                        </div>
+                        <div class="cs-stack-group">
+                            <h4>Mapping &amp; Geospatial</h4>
+                            <div class="cs-stack-pills">
+                                <span class="pill">Leaflet</span>
+                                <span class="pill">react-leaflet</span>
+                                <span class="pill">leaflet.heat</span>
+                                <span class="pill">react-leaflet-cluster</span>
+                                <span class="pill">Turf.js</span>
+                                <span class="pill">d3-delaunay</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="cs-stack-group">
+                            <h4>Data &amp; Reporting</h4>
+                            <div class="cs-stack-pills">
+                                <span class="pill">Recharts</span>
+                                <span class="pill">jsPDF</span>
+                                <span class="pill">jspdf-autotable</span>
+                                <span class="pill">html2canvas</span>
+                            </div>
+                        </div>
+                        <div class="cs-stack-group">
+                            <h4>Testing &amp; Tooling</h4>
+                            <div class="cs-stack-pills">
+                                <span class="pill">Cypress</span>
+                                <span class="pill">ESLint</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cs-cta">
+            <div class="container">
+                <h2 class="cs-section-title">Curious how it's built?</h2>
+                <div class="cs-actions">
+                    <a href="https://github.com/Lousieboyy/decision_support_system_web.git" target="_blank"
+                        rel="noopener noreferrer" class="btn btn-primary">
+                        <i class="devicon-github-original colored devicon-link-inline"></i>View Repository
+                    </a>
+                    <a href="../index.html#projects" class="btn btn-secondary">Back to all projects</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="cs-footer-min">
+        <p>&copy; 2026 <a href="../index.html#home">Mohamad Haikal</a>. Built with React, Vite, and a lot of coffee.</p>
+    </div>
+
+    <!-- Back to Top Button -->
+    <a href="#" id="back-to-top" class="back-to-top" aria-label="Scroll back to top">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </a>
+
+    <!-- Gallery Lightbox Modal -->
+    <div class="modal-overlay" id="gallery-modal" role="dialog" aria-modal="true" aria-label="Screenshot Lightbox" tabindex="-1" hidden>
+        <div class="modal-container lightbox-container">
+            <button class="modal-close" id="gallery-modal-close" aria-label="Close image">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+            </button>
+            <div class="lightbox-image-wrapper">
+                <img src="" alt="" id="lightbox-img" class="lightbox-image">
+            </div>
+            <div class="lightbox-footer">
+                <p id="lightbox-caption" class="lightbox-caption"></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="../script.js"></script>
+</body>
+
+</html>

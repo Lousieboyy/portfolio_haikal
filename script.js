@@ -645,13 +645,16 @@ window.copyEmail = function () {
 
         const actionsEl = document.getElementById('modal-actions');
         actionsEl.innerHTML = '';
+        if (d.caseStudy) {
+            actionsEl.innerHTML += `<a href="${d.caseStudy}" class="btn btn-primary">View Case Study &rarr;</a>`;
+        }
         if (d.repo) {
-            actionsEl.innerHTML += `<a href="${d.repo}" target="_blank" rel="noopener noreferrer" class="btn btn-primary"><i class="devicon-github-original colored devicon-link-inline"></i>View Repository</a>`;
+            actionsEl.innerHTML += `<a href="${d.repo}" target="_blank" rel="noopener noreferrer" class="btn ${d.caseStudy ? 'btn-secondary' : 'btn-primary'}"><i class="devicon-github-original colored devicon-link-inline"></i>View Repository</a>`;
         }
         if (d.demo) {
             actionsEl.innerHTML += `<a href="${d.demo}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Watch demo</a>`;
         }
-        if (!d.repo && !d.demo) {
+        if (!d.repo && !d.demo && !d.caseStudy) {
             actionsEl.innerHTML = `<span class="modal-links-placeholder">Links coming soon</span>`;
         }
 
